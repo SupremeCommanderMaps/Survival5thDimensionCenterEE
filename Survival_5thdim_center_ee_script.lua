@@ -49,695 +49,50 @@ local Survival_NukeFrequency = 135;
 
 local Survival_ObjectiveTime = 2400; --2160 --2160;
 
--- unit tables {'UnitID', OrderType};
---------------------------------------------------------------------------
-
--- order types
-
-	-- 1 = move
-	-- 2 = attack move
-	-- 3 = patrol paths
-
--- wave table entries are in the following format
-
--- {"Description", OrderType, 'UnitID'},
-
--- entry 1 is a description text not used by code
--- entry 2 is the order given to this unit
--- entry 3 is the blueprint id and can be added multiple times as needed
--- when a unit table is randomly selected for spawn ONE unit from within will be chosen at random
--- for example if the "T1 Tank" line is selected ONE of the four tanks will be selected for spawning
-
--- below are default unit categories but custom ones can be made using same formatting
-
---	{"T1 Scout", 1, 'UAL0101', 'URL0101', 'UEL0101', 'XSL0101'},
---	{"T1 Bot", 1, 'UAL0106', 'URL0106', 'UEL0106'},
---	{"T1 Tank", 4, 'UAL0201', 'URL0107', 'UEL0201', 'XSL0201'},
---	{"T1 Arty", 2, 'UAL0103', 'URL0103', 'UEL0103', 'XSL0103'},
---	{"T1 AA", 3, 'UAL0104', 'URL0104', 'UEL0104', 'XSL0104'},
-
---	{"T2 Tank", 4, 'XAL0203', 'URL0202', 'UEL0202', 'DEL0204', 'XSL0203'}, -- aeon blaze, cybran rhino, uef pillar, uef mongoose, sera tank
---	{"T2 HeavyTank", 4, 'UAL0202', 'URL0203', 'UEL0203', 'XSL0202'}, -- aeon obsidian, cybran wagner, uef riptide, sera bot
---	{"T2 RocketBot", 2, 'DRL0204'},
---	{"T2 AA", 2, 'UAL0205', 'URL0205', 'UEL0205', 'XSL0205'},
---	{"T2 MML", 2, 'UAL0111', 'URL0111', 'UEL0111', 'XSL0111'},
---	{"T2 Shield", 3, 'UAL0307', 'UEL0307'},
---	{"T2 Stealth", 3, 'URL0306'},
---	{"T2 Bomb", 2, 'XRL0302'},
-
---	{"T2 Destroyer", 2, 'URS0201'}, -- cybran destroyer
-
---	{"T3 Bot1", 4, 'URL0303', 'UEL0303'}, -- cybran loyalist, uef titan
---	{"T3 Bot2", 4, 'UAL0303', 'XSL0303'}, -- aeon harb, sera tank
---	{"T3 Bot3", 4, 'XRL0305', 'XEL0303'}, -- cybran brick, uef percival
---	{"T3 Sniper", 2, 'XAL0305', 'XSL0305'},
---	{"T3 Arty", 2, 'UAL0304', 'URL0304', 'UEL0304', 'XSL0304'},
---	{"T3 Shield", 3, 'XSL0307'},
---	{"T3 MML", 2, 'XEL0306'},
---	{"T3 ShieldKill", 2, 'DAL0310'},
-
---	{"T3 Subcom", 2, 'UAL0301', 'URL0301', 'UEL0301', 'XSL0301'},
-
-local Survival_WaveTables = {
-	{ -- special
-		2; -- current wave id (STARTS AT 2)
-		{ -- Dummy field for wave updater function
-			0.0; -- spawn time
-		},
-		{ -- Special ARTILLERY
-
-			37.0; -- spawn time
-
-			{"T3 ARTILLERY", 4, 'UAB2302', 'URB2302', 'UEB2302', 'XSB2302'}, -- second entry is MARKER ID and not order type
-		},
-		{ -- Special NUKES
-		
-			38.0; -- spawn time
-
-			{"T3 NUKES", 5, 'UAB2305', 'UEB2305', 'XSB2305'}, -- second entry is MARKER ID and not order type
-		},
-	},
-	{ -- ground
-		2; -- current wave id (STARTS AT 2)
-		{ -- Wave Set 1
-
-			0.0; -- spawn time
-
-			{"T1 Scout", 3, 'UAL0101', 'URL0101', 'UEL0101', 'XSL0101'},
-			{"T1 Bot", 1, 'UAL0106', 'URL0106', 'UEL0106'},
-		},
-		{ -- Wave Set 2
-
-			0.75; -- spawn time
-
-			{"T1 Scout", 3, 'UAL0101', 'URL0101', 'UEL0101', 'XSL0101'},
-			{"T1 Bot", 1, 'UAL0106', 'URL0106', 'UEL0106'},
-			{"T1 Bot", 1, 'UAL0106', 'URL0106', 'UEL0106'},
-		},
-		{ -- Wave Set 3
-
-			1.5; -- spawn time
-
-			{"T1 Scout", 3, 'UAL0101', 'URL0101', 'UEL0101', 'XSL0101'},
-			{"T1 Bot", 1, 'UAL0106', 'URL0106', 'UEL0106'},
-			{"T1 Bot", 1, 'UAL0106', 'URL0106', 'UEL0106'},
-
-			{"T1 Tank", 4, 'UAL0201', 'URL0107', 'UEL0201', 'XSL0201'},
-		},
-		{ -- Wave Set 4
-
-			3.0; -- spawn time
-
-			{"T1 Scout", 3, 'UAL0101', 'URL0101', 'UEL0101', 'XSL0101'},
-			{"T1 Bot", 1, 'UAL0106', 'URL0106', 'UEL0106'},
-
-			{"T1 Tank", 4, 'UAL0201', 'URL0107', 'UEL0201', 'XSL0201'},
-
-			{"T1 Arty", 2, 'UAL0103', 'URL0103', 'UEL0103', 'XSL0103'},
-		},
-		{ -- Wave Set 5
-
-			4.0; -- spawn time
-
-			{"T1 Scout", 3, 'UAL0101', 'URL0101', 'UEL0101', 'XSL0101'},
-			{"T1 Scout", 3, 'UAL0101', 'URL0101', 'UEL0101', 'XSL0101'},
-			{"T1 Bot", 1, 'UAL0106', 'URL0106', 'UEL0106'},
-			{"T1 Bot", 1, 'UAL0106', 'URL0106', 'UEL0106'},
-
-			{"T1 Tank", 4, 'UAL0201', 'URL0107', 'UEL0201', 'XSL0201'},
-			{"T1 Tank", 4, 'UAL0201', 'URL0107', 'UEL0201', 'XSL0201'},
-			{"T1 Tank", 4, 'UAL0201', 'URL0107', 'UEL0201', 'XSL0201'},
-			{"T1 Tank", 4, 'UAL0201', 'URL0107', 'UEL0201', 'XSL0201'},
-
-			{"T1 Arty", 2, 'UAL0103', 'URL0103', 'UEL0103', 'XSL0103'},
-			{"T1 Arty", 2, 'UAL0103', 'URL0103', 'UEL0103', 'XSL0103'},
-			{"T1 Arty", 2, 'UAL0103', 'URL0103', 'UEL0103', 'XSL0103'},
-		},
-		{ -- Wave Set 6
-
-			5.0; -- spawn time
-
-			{"T1 Scout", 3, 'UAL0101', 'URL0101', 'UEL0101', 'XSL0101'},
-			{"T1 Bot", 1, 'UAL0106', 'URL0106', 'UEL0106'},
-
-			{"T1 Tank", 4, 'UAL0201', 'URL0107', 'UEL0201', 'XSL0201'},
-			{"T1 Tank", 4, 'UAL0201', 'URL0107', 'UEL0201', 'XSL0201'},
-			{"T1 Tank", 1, 'UAL0201', 'URL0107', 'UEL0201', 'XSL0201'}, -- order change to 1
-
-			{"T1 Arty", 2, 'UAL0103', 'URL0103', 'UEL0103', 'XSL0103'},
-			{"T1 Arty", 2, 'UAL0103', 'URL0103', 'UEL0103', 'XSL0103'},
-		},
-		{ -- Wave Set 7
-
-			6.0; -- spawn time
-
-			{"T1 Bot", 1, 'UAL0106', 'URL0106', 'UEL0106'},
-
-			{"T1 Tank", 4, 'UAL0201', 'URL0107', 'UEL0201', 'XSL0201'},
-			{"T1 Tank", 4, 'UAL0201', 'URL0107', 'UEL0201', 'XSL0201'},
-			{"T1 Tank", 1, 'UAL0201', 'URL0107', 'UEL0201', 'XSL0201'}, -- order change to 1
-
-			{"T1 Arty", 2, 'UAL0103', 'URL0103', 'UEL0103', 'XSL0103'},
-			{"T1 Arty", 2, 'UAL0103', 'URL0103', 'UEL0103', 'XSL0103'},
-
-			{"T2 Bomb", 2, 'XRL0302'},
-		},
-		{ -- Wave Set 8
-
-			7.0; -- spawn time
-
-			{"T1 Tank", 4, 'UAL0201', 'URL0107', 'UEL0201', 'XSL0201'},
-			{"T1 Tank", 4, 'UAL0201', 'URL0107', 'UEL0201', 'XSL0201'},
-			{"T1 Tank", 1, 'UAL0201', 'URL0107', 'UEL0201', 'XSL0201'}, -- order change to 1
-
-			{"T1 Arty", 2, 'UAL0103', 'URL0103', 'UEL0103', 'XSL0103'},
-			{"T1 Arty", 2, 'UAL0103', 'URL0103', 'UEL0103', 'XSL0103'},
-
-			{"T2 Bomb", 2, 'XRL0302'},
-
-			{"T2 Tank", 4, 'XAL0203', 'URL0202', 'UEL0202', 'DEL0204', 'XSL0203'},
-		},
-		{ -- Wave Set 9
-
-			8.0; -- spawn time
-
-			{"T1 Tank", 1, 'UAL0201', 'URL0107', 'UEL0201', 'XSL0201'}, -- order change to 1
-			{"T1 Tank", 1, 'UAL0201', 'URL0107', 'UEL0201', 'XSL0201'}, -- order change to 1
-
-			{"T1 Arty", 2, 'UAL0103', 'URL0103', 'UEL0103', 'XSL0103'},
-			{"T1 Arty", 2, 'UAL0103', 'URL0103', 'UEL0103', 'XSL0103'},
-
-			{"T2 Bomb", 2, 'XRL0302'},
-
-			{"T2 Tank", 4, 'XAL0203', 'URL0202', 'UEL0202', 'DEL0204', 'XSL0203'},
-			{"T2 Tank", 4, 'XAL0203', 'URL0202', 'UEL0202', 'DEL0204', 'XSL0203'},
-
-			{"T2 RocketBot", 2, 'DRL0204'},
-		},
-		{ -- Wave Set 10
-
-			9.0; -- spawn time
-
-			{"T1 Tank", 1, 'UAL0201', 'URL0107', 'UEL0201', 'XSL0201'}, -- order change to 1
-			{"T1 Arty", 2, 'UAL0103', 'URL0103', 'UEL0103', 'XSL0103'},
-
-			{"T2 Bomb", 2, 'XRL0302'},
-
-			{"T2 Tank", 4, 'XAL0203', 'URL0202', 'UEL0202', 'DEL0204', 'XSL0203'},
-			{"T2 Tank", 4, 'XAL0203', 'URL0202', 'UEL0202', 'DEL0204', 'XSL0203'},
-			{"T2 Tank", 4, 'XAL0203', 'URL0202', 'UEL0202', 'DEL0204', 'XSL0203'},
-
-			{"T2 RocketBot", 2, 'DRL0204'},
-			{"T2 MML", 2, 'UAL0111', 'URL0111', 'UEL0111', 'XSL0111'},
-		},
-		{ -- Wave Set 11
-
-			10.0; -- spawn time
-
-			{"T2 Bomb", 2, 'XRL0302'},
-
-			{"T2 Tank", 4, 'XAL0203', 'URL0202', 'UEL0202', 'DEL0204', 'XSL0203'},
-			{"T2 Tank", 4, 'XAL0203', 'URL0202', 'UEL0202', 'DEL0204', 'XSL0203'},
-			{"T2 Tank", 1, 'XAL0203', 'URL0202', 'UEL0202', 'DEL0204', 'XSL0203'}, -- order change to 1
-
-			{"T2 HeavyTank", 4, 'UAL0202', 'URL0203', 'UEL0203', 'XSL0202'},
-
-			{"T2 RocketBot", 2, 'DRL0204'},
-			{"T2 MML", 2, 'UAL0111', 'URL0111', 'UEL0111', 'XSL0111'},
-		},
-		{ -- Wave Set 12
-
-			11.0; -- spawn time
-
-			{"T2 Bomb", 2, 'XRL0302'},
-
-			{"T2 Tank", 4, 'XAL0203', 'URL0202', 'UEL0202', 'DEL0204', 'XSL0203'},
-			{"T2 Tank", 1, 'XAL0203', 'URL0202', 'UEL0202', 'DEL0204', 'XSL0203'}, -- order change to 1
-			{"T2 Tank", 1, 'XAL0203', 'URL0202', 'UEL0202', 'DEL0204', 'XSL0203'}, -- order change to 1
-
-			{"T2 HeavyTank", 4, 'UAL0202', 'URL0203', 'UEL0203', 'XSL0202'},
-			{"T2 HeavyTank", 4, 'UAL0202', 'URL0203', 'UEL0203', 'XSL0202'},
-
-			{"T2 RocketBot", 2, 'DRL0204'},
-			{"T2 MML", 2, 'UAL0111', 'URL0111', 'UEL0111', 'XSL0111'},
-		},
-		{ -- Wave Set 13
-
-			12.0; -- spawn time
-
-			{"T2 Bomb", 2, 'XRL0302'},
-
-			{"T2 Tank", 1, 'XAL0203', 'URL0202', 'UEL0202', 'DEL0204', 'XSL0203'}, -- order change to 1
-			{"T2 Tank", 1, 'XAL0203', 'URL0202', 'UEL0202', 'DEL0204', 'XSL0203'}, -- order change to 1
-
-			{"T2 HeavyTank", 4, 'UAL0202', 'URL0203', 'UEL0203', 'XSL0202'},
-			{"T2 HeavyTank", 4, 'UAL0202', 'URL0203', 'UEL0203', 'XSL0202'},
-			{"T2 HeavyTank", 1, 'UAL0202', 'URL0203', 'UEL0203', 'XSL0202'}, -- order change to 1
-
-			{"T2 RocketBot", 2, 'DRL0204'},
-			{"T2 MML", 2, 'UAL0111', 'URL0111', 'UEL0111', 'XSL0111'},
-
-			{"T2 Shield", 3, 'UAL0307', 'UEL0307'},
-		},
-		{ -- Wave Set 14
-
-			13.0; -- spawn time
-
-			{"T2 Tank", 1, 'XAL0203', 'URL0202', 'UEL0202', 'DEL0204', 'XSL0203'}, -- order change to 1
-
-			{"T2 HeavyTank", 4, 'UAL0202', 'URL0203', 'UEL0203', 'XSL0202'},
-			{"T2 HeavyTank", 4, 'UAL0202', 'URL0203', 'UEL0203', 'XSL0202'},
-			{"T2 HeavyTank", 1, 'UAL0202', 'URL0203', 'UEL0203', 'XSL0202'}, -- order change to 1
-
-			{"T2 RocketBot", 2, 'DRL0204'},
-			{"T2 MML", 2, 'UAL0111', 'URL0111', 'UEL0111', 'XSL0111'},
-
-			{"T2 Shield", 3, 'UAL0307', 'UEL0307'},
-		},
-		{ -- Wave Set 15
-
-			14.0; -- spawn time
-
-			{"T2 HeavyTank", 4, 'UAL0202', 'URL0203', 'UEL0203', 'XSL0202'},
-			{"T2 HeavyTank", 4, 'UAL0202', 'URL0203', 'UEL0203', 'XSL0202'},
-			{"T2 HeavyTank", 1, 'UAL0202', 'URL0203', 'UEL0203', 'XSL0202'}, -- order change to 1
-
-			{"T2 RocketBot", 2, 'DRL0204'},
-			{"T2 MML", 2, 'UAL0111', 'URL0111', 'UEL0111', 'XSL0111'},
-
-			{"T2 Shield", 3, 'UAL0307', 'UEL0307'},
-
-			{"T3 Bot1", 4, 'URL0303', 'UEL0303'},
-		},
-		{ -- Wave Set 16
-
-			15.0; -- spawn time
-
-			{"T2 HeavyTank", 4, 'UAL0202', 'URL0203', 'UEL0203', 'XSL0202'},
-			{"T2 HeavyTank", 1, 'UAL0202', 'URL0203', 'UEL0203', 'XSL0202'}, -- order change to 1
-
-			{"T2 RocketBot", 2, 'DRL0204'},
-			{"T2 MML", 2, 'UAL0111', 'URL0111', 'UEL0111', 'XSL0111'},
-
-			{"T2 Shield", 3, 'UAL0307', 'UEL0307'},
-
-			{"T3 Bot1", 4, 'URL0303', 'UEL0303'},
-			{"T3 Bot1", 4, 'URL0303', 'UEL0303'},
-
-		},
-		{ -- Wave Set 17
-
-			16.0; -- spawn time
-
-			{"T2 HeavyTank", 1, 'UAL0202', 'URL0203', 'UEL0203', 'XSL0202'}, -- order change to 1
-
-			{"T2 RocketBot", 2, 'DRL0204'},
-			{"T2 MML", 2, 'UAL0111', 'URL0111', 'UEL0111', 'XSL0111'},
-
-			{"T2 Shield", 3, 'UAL0307', 'UEL0307'},
-
-			{"T3 Bot1", 4, 'URL0303', 'UEL0303'},
-			{"T3 Bot1", 1, 'URL0303', 'UEL0303'}, -- order change to 1
-
-			{"T3 Bot2", 4, 'UAL0303', 'XSL0303'},
-		},
-		{ -- Wave Set 18
-
-			17.0; -- spawn time
-
-			{"T2 RocketBot", 2, 'DRL0204'},
-			{"T2 MML", 2, 'UAL0111', 'URL0111', 'UEL0111', 'XSL0111'},
-
-			{"T2 Shield", 3, 'UAL0307', 'UEL0307'},
-
-			{"T3 Bot1", 4, 'URL0303', 'UEL0303'},
-			{"T3 Bot1", 1, 'URL0303', 'UEL0303'}, -- order change to 1
-
-			{"T3 Bot2", 4, 'UAL0303', 'XSL0303'},
-			{"T3 Bot2", 1, 'UAL0303', 'XSL0303'}, -- order change to 1
-		},
-		{ -- Wave Set 19
-
-			18.0; -- spawn time
-
-			{"T2 MML", 2, 'UAL0111', 'URL0111', 'UEL0111', 'XSL0111'},
-
-			{"T2 Shield", 3, 'UAL0307', 'UEL0307'},
-
-			{"T3 Bot1", 4, 'URL0303', 'UEL0303'},
-			{"T3 Bot1", 1, 'URL0303', 'UEL0303'}, -- order change to 1
-
-			{"T3 Bot2", 4, 'UAL0303', 'XSL0303'},
-			{"T3 Bot2", 1, 'UAL0303', 'XSL0303'}, -- order change to 1
-
-			{"T3 Bot3", 4, 'XRL0305', 'XEL0305'},
-		},
-		{ -- Wave Set 20
-
-			19.0; -- spawn time
-
-			{"T2 MML", 2, 'UAL0111', 'URL0111', 'UEL0111', 'XSL0111'},
-
-			{"T2 Shield", 3, 'UAL0307', 'UEL0307'},
-			{"T3 Shield", 3, 'XSL0307'},
-
-			{"T3 Bot1", 4, 'URL0303', 'UEL0303'},
-			{"T3 Bot1", 1, 'URL0303', 'UEL0303'}, -- order change to 1
-
-			{"T3 Bot2", 4, 'UAL0303', 'XSL0303'},
-			{"T3 Bot2", 1, 'UAL0303', 'XSL0303'}, -- order change to 1
-
-			{"T3 Bot3", 4, 'XRL0305', 'XEL0305'},
-			{"T3 Bot3", 1, 'XRL0305', 'XEL0305'}, -- order change to 1
-		},
-		{ -- Wave Set 21
-
-			20.0; -- spawn time
-
-			{"T2 Shield", 3, 'UAL0307', 'UEL0307'},
-			{"T3 Shield", 3, 'XSL0307'},
-
-			{"T3 Bot1", 4, 'URL0303', 'UEL0303'},
-			{"T3 Bot1", 1, 'URL0303', 'UEL0303'}, -- order change to 1
-
-			{"T3 Bot2", 4, 'UAL0303', 'XSL0303'},
-			{"T3 Bot2", 1, 'UAL0303', 'XSL0303'}, -- order change to 1
-
-			{"T3 Bot3", 4, 'XRL0305', 'XEL0305'},
-			{"T3 Bot3", 1, 'XRL0305', 'XEL0305'}, -- order change to 1
-
-			{"T3 MML", 2, 'XEL0306'},
-		},
-		{ -- Wave Set 22
-
-			22.5; -- spawn time
-
-			{"T2 Shield", 3, 'UAL0307', 'UEL0307'},
-			{"T3 Shield", 3, 'XSL0307'},
-
-			{"T3 Bot1", 4, 'URL0303', 'UEL0303'},
-			{"T3 Bot1", 1, 'URL0303', 'UEL0303'}, -- order change to 1
-
-			{"T3 Bot2", 4, 'UAL0303', 'XSL0303'},
-			{"T3 Bot2", 1, 'UAL0303', 'XSL0303'}, -- order change to 1
-
-			{"T3 Bot3", 4, 'XRL0305', 'XEL0305'},
-			{"T3 Bot3", 1, 'XRL0305', 'XEL0305'}, -- order change to 1
-
-			{"T3 Sniper", 2, 'XAL0305', 'XSL0305'},
-
-			{"T3 MML", 2, 'XEL0306'},
-		},
-		{ -- Wave Set 23
-
-			25.0; -- spawn time
-
-			{"T2 Shield", 3, 'UAL0307', 'UEL0307'},
-			{"T3 Shield", 3, 'XSL0307'},
-
-			{"T3 Bot1", 4, 'URL0303', 'UEL0303'},
-			{"T3 Bot1", 1, 'URL0303', 'UEL0303'}, -- order change to 1
-
-			{"T3 Bot2", 4, 'UAL0303', 'XSL0303'},
-			{"T3 Bot2", 1, 'UAL0303', 'XSL0303'}, -- order change to 1
-
-			{"T3 Bot3", 4, 'XRL0305', 'XEL0305'},
-			{"T3 Bot3", 1, 'XRL0305', 'XEL0305'}, -- order change to 1
-
-			{"T3 Sniper", 2, 'XAL0305', 'XSL0305'},
-
-			{"T3 MML", 2, 'XEL0306'},
-
-			{"T3 Arty", 2, 'UAL0304', 'URL0304', 'UEL0304', 'XSL0304'},
-
-			{"T2 Shield", 3, 'UAL0307', 'UEL0307'},
-			{"T3 Shield", 3, 'XSL0307'},
-
-			{"T3 Bot1", 4, 'URL0303', 'UEL0303'},
-			{"T3 Bot1", 1, 'URL0303', 'UEL0303'}, -- order change to 1
-
-			{"T3 Bot2", 4, 'UAL0303', 'XSL0303'},
-			{"T3 Bot2", 1, 'UAL0303', 'XSL0303'}, -- order change to 1
-
-			{"T3 Bot3", 4, 'XRL0305', 'XEL0305'},
-			{"T3 Bot3", 1, 'XRL0305', 'XEL0305'}, -- order change to 1
-
-			{"T3 Sniper", 2, 'XAL0305', 'XSL0305'},
-
-			{"T3 MML", 2, 'XEL0306'},
-
-			{"T3 Arty", 2, 'UAL0304', 'URL0304', 'UEL0304', 'XSL0304'},
-
-			{"T2 Shield", 3, 'UAL0307', 'UEL0307'},
-			{"T3 Shield", 3, 'XSL0307'},
-
-			{"T3 Bot1", 4, 'URL0303', 'UEL0303'},
-			{"T3 Bot1", 1, 'URL0303', 'UEL0303'}, -- order change to 1
-
-			{"T3 Bot2", 4, 'UAL0303', 'XSL0303'},
-			{"T3 Bot2", 1, 'UAL0303', 'XSL0303'}, -- order change to 1
-
-			{"T3 Bot3", 4, 'XRL0305', 'XEL0305'},
-			{"T3 Bot3", 1, 'XRL0305', 'XEL0305'}, -- order change to 1
-
-			{"T3 Sniper", 2, 'XAL0305', 'XSL0305'},
-
-			{"T3 MML", 2, 'XEL0306'},
-
-			{"Monkeylord", 2, 'URL0402'},
-		},
-		{ -- Wave Set 24
-
-			27.5; -- spawn time
-
-			{"T2 Shield", 3, 'UAL0307', 'UEL0307'},
-			{"T3 Shield", 3, 'XSL0307'},
-
-			{"T3 Bot1", 4, 'URL0303', 'UEL0303'},
-			{"T3 Bot1", 1, 'URL0303', 'UEL0303'}, -- order change to 1
-
-			{"T3 Bot2", 4, 'UAL0303', 'XSL0303'},
-			{"T3 Bot2", 1, 'UAL0303', 'XSL0303'}, -- order change to 1
-
-			{"T3 Bot3", 4, 'XRL0305', 'XEL0305'},
-			{"T3 Bot3", 1, 'XRL0305', 'XEL0305'}, -- order change to 1
-
-			{"T3 Sniper", 2, 'XAL0305', 'XSL0305'},
-
-			{"T3 MML", 2, 'XEL0306'},
-
-			{"T3 Arty", 2, 'UAL0304', 'URL0304', 'UEL0304', 'XSL0304'},
-
-			{"T2 Shield", 3, 'UAL0307', 'UEL0307'},
-			{"T3 Shield", 3, 'XSL0307'},
-
-			{"T3 Bot1", 4, 'URL0303', 'UEL0303'},
-			{"T3 Bot1", 1, 'URL0303', 'UEL0303'}, -- order change to 1
-
-			{"T3 Bot2", 4, 'UAL0303', 'XSL0303'},
-			{"T3 Bot2", 1, 'UAL0303', 'XSL0303'}, -- order change to 1
-
-			{"T3 Bot3", 4, 'XRL0305', 'XEL0305'},
-			{"T3 Bot3", 1, 'XRL0305', 'XEL0305'}, -- order change to 1
-
-			{"T3 Sniper", 2, 'XAL0305', 'XSL0305'},
-
-			{"T3 MML", 2, 'XEL0306'},
-
-			{"T3 Arty", 2, 'UAL0304', 'URL0304', 'UEL0304', 'XSL0304'},
-
-			{"T2 Shield", 3, 'UAL0307', 'UEL0307'},
-			{"T3 Shield", 3, 'XSL0307'},
-
-			{"T3 Bot1", 4, 'URL0303', 'UEL0303'},
-			{"T3 Bot1", 1, 'URL0303', 'UEL0303'}, -- order change to 1
-
-			{"T3 Bot2", 4, 'UAL0303', 'XSL0303'},
-			{"T3 Bot2", 1, 'UAL0303', 'XSL0303'}, -- order change to 1
-
-			{"T3 Bot3", 4, 'XRL0305', 'XEL0305'},
-			{"T3 Bot3", 1, 'XRL0305', 'XEL0305'}, -- order change to 1
-
-			{"T3 Sniper", 2, 'XAL0305', 'XSL0305'},
-
-			{"T3 MML", 2, 'XEL0306'},
-
-			{"GC", 2, "UAL0401"},
-
-			{"Ythotha", 1, "XSL0401"},
-		},
-		{ -- Wave Set 25
-
-			30.0; -- spawn time
-
-			{"T2 Shield", 3, 'UAL0307', 'UEL0307'},
-			{"T3 Shield", 3, 'XSL0307'},
-
-			{"T3 Bot1", 4, 'URL0303', 'UEL0303'},
-			{"T3 Bot1", 1, 'URL0303', 'UEL0303'}, -- order change to 1
-
-			{"T3 Bot2", 4, 'UAL0303', 'XSL0303'},
-			{"T3 Bot2", 1, 'UAL0303', 'XSL0303'}, -- order change to 1
-
-			{"T3 Bot3", 4, 'XRL0305', 'XEL0305'},
-			{"T3 Bot3", 1, 'XRL0305', 'XEL0305'}, -- order change to 1
-
-			{"T3 Sniper", 2, 'XAL0305', 'XSL0305'},
-
-			{"T3 MML", 2, 'XEL0306'},
-
-			{"T3 Arty", 2, 'UAL0304', 'URL0304', 'UEL0304', 'XSL0304'},
-
-			{"T2 Shield", 3, 'UAL0307', 'UEL0307'},
-			{"T3 Shield", 3, 'XSL0307'},
-
-			{"T3 Bot1", 4, 'URL0303', 'UEL0303'},
-			{"T3 Bot1", 1, 'URL0303', 'UEL0303'}, -- order change to 1
-
-			{"T3 Bot2", 4, 'UAL0303', 'XSL0303'},
-			{"T3 Bot2", 1, 'UAL0303', 'XSL0303'}, -- order change to 1
-
-			{"T3 Bot3", 4, 'XRL0305', 'XEL0305'},
-			{"T3 Bot3", 1, 'XRL0305', 'XEL0305'}, -- order change to 1
-
-			{"T3 Sniper", 2, 'XAL0305', 'XSL0305'},
-
-			{"T3 MML", 2, 'XEL0306'},
-
-			{"T3 Arty", 2, 'UAL0304', 'URL0304', 'UEL0304', 'XSL0304'},
-
-			{"T2 Shield", 3, 'UAL0307', 'UEL0307'},
-			{"T3 Shield", 3, 'XSL0307'},
-
-			{"T3 Bot1", 4, 'URL0303', 'UEL0303'},
-			{"T3 Bot1", 1, 'URL0303', 'UEL0303'}, -- order change to 1
-
-			{"T3 Bot2", 4, 'UAL0303', 'XSL0303'},
-			{"T3 Bot2", 1, 'UAL0303', 'XSL0303'}, -- order change to 1
-
-			{"T3 Bot3", 4, 'XRL0305', 'XEL0305'},
-			{"T3 Bot3", 1, 'XRL0305', 'XEL0305'}, -- order change to 1
-
-			{"T3 Sniper", 2, 'XAL0305', 'XSL0305'},
-
-			{"T3 MML", 2, 'XEL0306'},
-
-			{"Monkeylord", 1, 'URL0402'}, -- order change to 1
-			{"Monkeylord", 2, 'URL0402'},
-			{"GC", 2, "UAL0401"},
-
-			{"Ythotha", 1, "XSL0401"},
-
-			{"Megalith", 2, "XRL0403"},
-		},
-		{ -- Wave Set 26
-
-			32.5; -- spawn time
-
-			{"T2 Shield", 3, 'UAL0307', 'UEL0307'},
-			{"T3 Shield", 3, 'XSL0307'},
-
-			{"T3 Bot1", 4, 'URL0303', 'UEL0303'},
-			{"T3 Bot1", 1, 'URL0303', 'UEL0303'}, -- order change to 1
-
-			{"T3 Bot2", 4, 'UAL0303', 'XSL0303'},
-			{"T3 Bot2", 1, 'UAL0303', 'XSL0303'}, -- order change to 1
-
-			{"T3 Bot3", 4, 'XRL0305', 'XEL0305'},
-			{"T3 Bot3", 1, 'XRL0305', 'XEL0305'}, -- order change to 1
-
-			{"T3 Sniper", 2, 'XAL0305', 'XSL0305'},
-
-			{"T3 MML", 2, 'XEL0306'},
-
-			{"T3 Arty", 2, 'UAL0304', 'URL0304', 'UEL0304', 'XSL0304'},
-
-			{"T2 Shield", 3, 'UAL0307', 'UEL0307'},
-			{"T3 Shield", 3, 'XSL0307'},
-
-			{"T3 Bot1", 4, 'URL0303', 'UEL0303'},
-			{"T3 Bot1", 1, 'URL0303', 'UEL0303'}, -- order change to 1
-
-			{"T3 Bot2", 4, 'UAL0303', 'XSL0303'},
-			{"T3 Bot2", 1, 'UAL0303', 'XSL0303'}, -- order change to 1
-
-			{"T3 Bot3", 4, 'XRL0305', 'XEL0305'},
-			{"T3 Bot3", 1, 'XRL0305', 'XEL0305'}, -- order change to 1
-
-			{"T3 Sniper", 2, 'XAL0305', 'XSL0305'},
-
-			{"T3 MML", 2, 'XEL0306'},
-
-			{"T3 Arty", 2, 'UAL0304', 'URL0304', 'UEL0304', 'XSL0304'},
-
-			{"T2 Shield", 3, 'UAL0307', 'UEL0307'},
-			{"T3 Shield", 3, 'XSL0307'},
-
-			{"T3 Bot1", 4, 'URL0303', 'UEL0303'},
-			{"T3 Bot1", 1, 'URL0303', 'UEL0303'}, -- order change to 1
-
-			{"T3 Bot2", 4, 'UAL0303', 'XSL0303'},
-			{"T3 Bot2", 1, 'UAL0303', 'XSL0303'}, -- order change to 1
-
-			{"T3 Bot3", 4, 'XRL0305', 'XEL0305'},
-			{"T3 Bot3", 1, 'XRL0305', 'XEL0305'}, -- order change to 1
-
-			{"T3 Sniper", 2, 'XAL0305', 'XSL0305'},
-
-			{"T3 MML", 2, 'XEL0306'},
-
-			{"T3 Arty", 2, 'UAL0304', 'URL0304', 'UEL0304', 'XSL0304'},
-
-			{"Megalith", 2, "XRL0403"},
-
-			{"Fatboy", 3, "UEL0401"},
-		},
-		{ -- Wave Set 27
-
-			35.0; -- spawn time
-
-			{"T2 Shield", 3, 'UAL0307', 'UEL0307'},
-			{"T3 Shield", 3, 'XSL0307'},
-
-			{"T2 Shield", 3, 'UAL0307', 'UEL0307'},
-			{"T3 Shield", 3, 'XSL0307'},
-
-			{"T2 Shield", 3, 'UAL0307', 'UEL0307'},
-			{"T3 Shield", 3, 'XSL0307'},
-
-			{"Monkeylord", 1, 'URL0402'}, -- order change to 1
-			{"Monkeylord", 2, 'URL0402'},
-			{"GC", 2, "UAL0401"},
-
-			{"Ythotha", 1, "XSL0401"},
-
-			{"Megalith", 2, "XRL0403"},
-
-			{"Fatboy", 3, "UEL0401"},
-		},
-	},
-};
---	{"T3 Bot1", 4, 'URL0303', 'UEL0303'}, -- cybran loyalist, uef titan
---	{"T3 Bot2", 4, 'UAL0303', 'XSL0303'}, -- aeon harb, sera tank
---	{"T3 Bot3", 4, 'XRL0305', 'XEL0305'}, -- cybran brick, uef percival
---	{"T3 Sniper", 2, 'XAL0305', 'XSL0305'},
---	{"T3 Arty", 2, 'UAL0304', 'URL0304', 'UEL0304', 'XSL0304'},
---	{"T3 Shield", 3, 'XSL0307'},
---	{"T3 MML", 2, 'XEL0306'},
---	{"T3 ShieldKill", 2, 'DAL0310'},
--- 	{"Monkeylord", 2, 'URL0402'},
-
+local function localImport(fileName)
+	return import('/maps/Survival_5thdim_center_ee.v0001/src/' .. fileName)
+end
+
+local waveTables = localImport('WaveTables.lua').getWaveTables()
+
+local function defaultOptions()
+	if (ScenarioInfo.Options.opt_Survival_BuildTime == nil) then
+		ScenarioInfo.Options.opt_Survival_BuildTime = 150;
+	end
+
+	if (ScenarioInfo.Options.opt_Survival_EnemiesPerMinute == nil) then
+		ScenarioInfo.Options.opt_Survival_EnemiesPerMinute = 32;
+	end
+
+	if (ScenarioInfo.Options.opt_Survival_WaveFrequency == nil) then
+		ScenarioInfo.Options.opt_Survival_WaveFrequency = 10;
+	end
+end
 
 -- called at start to read various settings
 --------------------------------------------------------------------------
 function OnPopulate()
+	ScenarioUtils.InitializeArmies()
 
-	LOG("----- Survival MOD: OnPopulate()");
+	defaultOptions()
 
-	-- start the armies
-	ScenarioUtils.InitializeArmies();
+	local textPrinter = localImport('lib/TextPrinter.lua').newInstance()
 
-	SetArmyColor("ARMY_SURVIVAL_ENEMY", 110, 90, 90)
+	ForkThread(function()
+		SetArmyColor("ARMY_SURVIVAL_ENEMY", 110, 90, 90)
+
+		WaitSeconds(ScenarioInfo.Options.opt_Survival_BuildTime + 900) -- Start at wave set 16
+
+		textPrinter.print("DISCO MODE RANGEBOTS!", {size = 22})
+
+		local colorChanger = localImport('lib/ColorChanger.lua').newInstance("ARMY_SURVIVAL_ENEMY")
+		colorChanger.start()
+
+		WaitSeconds(60) -- End at wave set 17
+
+		colorChanger.stop()
+		SetArmyColor("ARMY_SURVIVAL_ENEMY", 110, 90, 90)
+	end)
 
 	-- prepare all the survival stuff
 	Survival_InitGame();
@@ -817,15 +172,8 @@ end
 
 
 
--- called at start of game
---------------------------------------------------------------------------
 function OnStart(self)
-
-	LOG("----- Survival MOD: Initializing game start sequence...");
-
-	-- start the survival tick
 	ForkThread(Survival_Tick);
-
 end
 
 
@@ -836,25 +184,12 @@ Survival_InitGame = function()
 
 	LOG("----- Survival MOD: Configuring match settings...");
 
-	-- check game configuration
-	
-		-- build time
-		if (ScenarioInfo.Options.opt_Survival_BuildTime == nil) then
-			ScenarioInfo.Options.opt_Survival_BuildTime = 150;
-		end
 
-		Survival_NextSpawnTime = ScenarioInfo.Options.opt_Survival_BuildTime; -- set first wave time to build time
-		Survival_MinWarnTime = Survival_NextSpawnTime - 60; -- set time for minute warning
+	Survival_NextSpawnTime = ScenarioInfo.Options.opt_Survival_BuildTime; -- set first wave time to build time
+	Survival_MinWarnTime = Survival_NextSpawnTime - 60; -- set time for minute warning
 
-		-- opt_Survival_EnemiesPerMinute
-		if (ScenarioInfo.Options.opt_Survival_EnemiesPerMinute == nil) then
-			ScenarioInfo.Options.opt_Survival_EnemiesPerMinute = 32;
-		end
+	-- opt_Survival_EnemiesPerMinute
 
-		-- opt_Survival_WaveFrequency
-		if (ScenarioInfo.Options.opt_Survival_WaveFrequency == nil) then
-			ScenarioInfo.Options.opt_Survival_WaveFrequency = 10;
-		end
 
 	ScenarioInfo.Options.Victory = 'sandbox'; -- force sandbox in order to implement our own rules
 
@@ -1134,17 +469,11 @@ end
 --------------------------------------------------------------------------
 Survival_Tick = function(self)
 
-	LOG("----- Survival MOD: Tick thread started with interval of (" .. Survival_TickInterval .. ")");
-
 	while (Survival_GameState < 2) do
 
 		Survival_CurrentTime = GetGameTimeSeconds();
 
 		Survival_UpdateWaves(Survival_CurrentTime);
-
---		LOG("----- Survival MOD: -LOOP- GameState: " .. Survival_GameState .. "     NextSpawnTime: " .. SecondsToTime(Survival_NextSpawnTime) .. " (" .. Survival_NextSpawnTime .. ")     Clock:" .. SecondsToTime(Survival_CurrentTime) .. " (" .. Survival_CurrentTime .. ")");
-
---		Survival_DefUnit:UpdateShieldRatio(0.5); --Survival_CurrentTime / Survival_ObjectiveTime);
 
 		if (Survival_CurrentTime >= Survival_ObjectiveTime) then
 
@@ -1194,8 +523,7 @@ Survival_Tick = function(self)
 					Survival_NextSpawnTime = Survival_NextSpawnTime + ScenarioInfo.Options.opt_Survival_WaveFrequency; -- update next wave spawn time by wave frequency
 				end
 
-				Survival_DefUnit:SetCustomName('Level ' ..  (Survival_WaveTables[2][1] - 1) .. "/" .. (table.getn(Survival_WaveTables[2]) - 1) ); -- .. ' (' .. SecondsToTime(Survival_CurrentTime - (Survival_WaveTables[1][Survival_WaveTables[1][1] + 1][1] * 60)).. ')');
-				--SecondsToTime((Survival_WaveTables[1][(Survival_WaveTables[1][1])][1] * 60) - Survival_CurrentTime)
+				Survival_DefUnit:SetCustomName('Level ' ..  (waveTables[1] - 1) .. "/" .. (table.getn(waveTables) - 1) );
 			end
 
 			Survival_DefCheckHP = Survival_DefCheckHP - Survival_TickInterval;
@@ -1234,32 +562,15 @@ end
 -- updates spawn waves
 --------------------------------------------------------------------------
 Survival_UpdateWaves = function(GameTime)
+	for y = waveTables[1], table.getn(waveTables) do -- loop through each wave table within the category
 
-	local OldWaveID = 1;
-
-	-- check the wave table times vs the wave spawn time to see which waves we spawn
-	for x = 1, table.getn(Survival_WaveTables) do -- loop through each of the wavetable entries (ground/air/sea...)
-
---		OldWaveID = 1;
-		OldWaveID = Survival_WaveTables[x][1];
-
-		for y = Survival_WaveTables[x][1], table.getn(Survival_WaveTables[x]) do -- loop through each wave table within the category
-
-			if (GameTime >= (Survival_WaveTables[x][y][1] * 60)) then -- compare spawn time against the first entry spawn time for each wave table
-				if (Survival_WaveTables[x][1] < y) then -- should only update a wave once
-				
-					Survival_WaveTables[x][1] = y; -- update the wave id for this wave category
-
-					if (x == 1) then -- if this is the special category update, immediately call the setup function
-						Survival_SpawnSpecialWave(GameTime);
-					end
-				end
-			else break; end
-
-		end
-
-		if (Survival_WaveTables[x][1] ~= OldWaveID) then -- if we have a new wave ID for this table
-			LOG("----- Survival MOD: Updating wave table from C:" .. x .. " ID:" .. Survival_WaveTables[x][1] .. " ( Set:" .. (Survival_WaveTables[x][1] - 1) ..") at " .. SecondsToTime(GameTime));		
+		if (GameTime >= (waveTables[y][1] * 60)) then -- compare spawn time against the first entry spawn time for each wave table
+			if (waveTables[1] < y) then -- should only update a wave once
+			
+				waveTables[1] = y; -- update the wave id for this wave category
+			end
+		else
+			break;
 		end
 	end
 end
@@ -1268,44 +579,26 @@ end
 
 -- spawns a wave of units
 --------------------------------------------------------------------------
+local function spawnWaveTable(waveTable)
+	-- pick a random unit table from within this wave set
+	local UnitTable = waveTable[math.random(2, table.getn(waveTable))]; -- reference that unit table
+
+	Survival_SpawnUnit(
+		Survival_GetUnitFromTable(UnitTable), -- pick a random unit id from this table
+		"ARMY_SURVIVAL_ENEMY",
+		Survival_GetPOS(3, 25),
+		UnitTable[2] -- get the order id from this unit table (always 2nd entry)
+	);
+end
+
 Survival_SpawnWave = function(SpawnTime)
-
---	LOG("----- Survival MOD: Performing a wave spawn at " .. SecondsToTime(SpawnTime));
-
-	local WaveTable = nil;
-	local UnitTable = nil;
-
-	local UnitID = nil;
-	local OrderID = nil;
-	local POS = nil;
-	local RandID = nil;
-
-	-- check the wave table times vs the wave spawn time to see which waves we spawn
-	-- START AT TABLE 2 BECAUSE TABLE 1 IS SPECIAL UNITS (ARTY/NUKE)
-	for x = 2, table.getn(Survival_WaveTables) do -- loop through each of the wavetable entries (ground/air/sea...)
-
---		LOG("----- Survival MOD: Category(" .. x .. ")     Wave Set (" .. Survival_WaveTables[x][1] - 1 .. ")   (ID: " .. Survival_WaveTables[x][1] .. ");
-
+	-- for the amount of units we spawn in per wave
+	if (table.getn(waveTables[waveTables[1]]) > 1) then -- only do a wave spawn if there is a wave table available
 		-- for the amount of units we spawn in per wave
-		if (table.getn(Survival_WaveTables[x][Survival_WaveTables[x][1]]) > 1) then -- only do a wave spawn if there is a wave table available
-			-- for the amount of units we spawn in per wave
-			for z = 1,Survival_UnitCountPerWave do
-			
-				WaveTable = Survival_WaveTables[x][Survival_WaveTables[x][1]]; -- grab the wave set table we're spawning from
-				RandID = math.random(2, table.getn(WaveTable)); -- pick a random unit table from within this wave set
-				UnitTable = WaveTable[RandID]; -- reference that unit table
-
-				UnitID = Survival_GetUnitFromTable(UnitTable); -- pick a random unit id from this table
-				OrderID = UnitTable[2]; -- get the order id from this unit table (always 2nd entry)
-
-				POS = Survival_GetPOS(3, 25);
-
-				Survival_SpawnUnit(UnitID, "ARMY_SURVIVAL_ENEMY", POS, OrderID);
-			end
+		for z = 1,Survival_UnitCountPerWave do
+			spawnWaveTable(waveTables[waveTables[1]])
 		end
-
 	end
-
 end
 
 
@@ -1333,76 +626,6 @@ Survival_SpawnUnit = function(UnitID, ArmyID, POS, OrderID) -- blueprint, army, 
 end
 
 
-
--- spawns a wave of special units
---------------------------------------------------------------------------
-Survival_SpawnSpecialWave = function(SpawnTime)
-
-	LOG("----- Survival MOD: Performing a special wave spawn at " .. SecondsToTime(SpawnTime));
-
-	local UnitTable = Survival_WaveTables[1][Survival_WaveTables[1][1]][2]
-	local UnitID = nil;
-	local POS = nil;
-
-	if (table.getn(Survival_WaveTables[1][Survival_WaveTables[1][1]]) > 1) then -- only do a wave spawn if there is a wave table available
-
-		-- spawn one per player (up to the amount of spawn locations)
-		for x = 1, Survival_PlayerCount do
-
-			UnitID = Survival_GetUnitFromTable(UnitTable); -- pick a random unit id from this table
-			POS = Survival_GetPOS(UnitTable[2], 0);
-
-			if (POS ~= nil) then
-				Survival_SpawnSpecialUnit(UnitID, "ARMY_SURVIVAL_ENEMY", POS)
-			end
-		end
-	end
-
-end
-
-
-
--- spawns a special unit
--- this is fairly hard-coded for this specific setup and will need to be adjusted for alternate rules and gameplay
---------------------------------------------------------------------------
-Survival_SpawnSpecialUnit = function(UnitID, ArmyID, POS) -- blueprint, army, position
-
-	LOG("----- Survival MOD: SPAWNSPECIALUNIT: Start function...");
-
-	local PlatoonList = {};
-
-	local NewUnit = CreateUnitHPR(UnitID, ArmyID, POS[1], POS[2], POS[3], 0,0,0);
-
-	NewUnit:SetReclaimable(false);
-	NewUnit:SetCapturable(false);
-	NewUnit:SetProductionPerSecondEnergy(25000);
-	NewUnit:SetConsumptionPerSecondEnergy(0);
-	NewUnit:SetProductionPerSecondMass(1000);
-
-	NewUnit:SetMaxHealth(25000000);
-	NewUnit:SetHealth(nil, 25000000);
-	NewUnit:SetRegenRate(5000000);
-
-	table.insert(PlatoonList, NewUnit); -- add unit to a platoon
-
-	-- if this is an artillery unit
-	if ((UnitID == "UAB2302") or (UnitID == "URB2302") or (UnitID == "UEB2302") or (UnitID == "XSB2302") or (UnitID == "UEB2401") or (UnitID == "XAB2307") or (UnitID == "URL0401")) then
-
-		table.insert(Survival_ArtyUnits, NewUnit); -- add unit to special unit list
-		NewUnit:SetIntelRadius('Vision', 1000);
-
-	elseif ((UnitID == "UAB2305") or (UnitID == "UEB2305") or (UnitID == "XSB2305") or (UnitID == "XSB2401")) then
-
-		table.insert(Survival_NukeUnits, NewUnit); -- add unit to special unit list
-
-		if (Survival_NextNukeTime == 10000) then
-			Survival_NextNukeTime = Survival_CurrentTime; -- update counter for next time
-		end
-
-		Survival_FireNuke();
-	end
-
-end
 
 
 
