@@ -142,6 +142,13 @@ function OnPopulate()
     setupAutoReclaim()
     setupAllFactions()
 	Survival_InitGame()
+
+    local welcomeMessages = localImport('WelcomeMessages.lua').newInstance(
+        textPrinter,
+        ScenarioInfo.Options
+    )
+
+    welcomeMessages.startDisplay()
 end
 
 local function createSurvivalUnit(blueprint, x, z, y)
