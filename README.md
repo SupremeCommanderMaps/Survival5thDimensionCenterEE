@@ -1,6 +1,6 @@
 ## Version History
 
-### Entropy Edition 2
+### Entropy Edition 1
 
 2019-02-24
 

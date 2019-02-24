@@ -50,7 +50,7 @@ local Survival_NukeFrequency = 135;
 local Survival_ObjectiveTime = 2400; --2160 --2160;
 
 local function localImport(fileName)
-	return import('/maps/survival_5thdim_center_ee.v0002/src/' .. fileName)
+	return import('/maps/survival_5th_dimension_center_ee.v0001/src/' .. fileName)
 end
 
 local waveTables = localImport('WaveTables.lua').getWaveTables()
