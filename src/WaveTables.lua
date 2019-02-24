@@ -25,6 +25,7 @@ local tables = {
 
         {"T1 Scout", 3, 'UAL0101', 'URL0101', 'UEL0101', 'XSL0101'},
         {"T1 Bot", 1, 'UAL0106', 'URL0106', 'UEL0106'},
+--        {"Rangeboooooots!", 4, 'DEL0204'},
     },
     { -- Wave Set 2
 

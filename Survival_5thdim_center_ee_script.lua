@@ -136,6 +136,23 @@ local function setBotColor()
 	end)
 end
 
+local function showWelcomeMessages()
+	local welcomeMessages = localImport('WelcomeMessages.lua').newInstance(
+		textPrinter,
+		ScenarioInfo.Options
+	)
+
+	welcomeMessages.startDisplay()
+end
+
+local function vanguardify()
+	unitCreator.onUnitCreated(function(unit, unitInfo)
+		if unitInfo.isSurvivalSpawned and unitInfo.blueprintName == "DEL0204" then
+			unit:SetCustomName("Minion of Vanguard")
+		end
+	end)
+end
+
 function OnPopulate()
 	ScenarioUtils.InitializeArmies()
 
@@ -144,14 +161,11 @@ function OnPopulate()
 	setBotColor()
     setupAutoReclaim()
     setupAllFactions()
+	vanguardify()
+
 	Survival_InitGame()
 
-    local welcomeMessages = localImport('WelcomeMessages.lua').newInstance(
-        textPrinter,
-        ScenarioInfo.Options
-    )
-
-    welcomeMessages.startDisplay()
+	showWelcomeMessages()
 end
 
 local function createSurvivalUnit(blueprint, x, z, y)
