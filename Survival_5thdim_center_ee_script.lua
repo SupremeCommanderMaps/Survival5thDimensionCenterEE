@@ -54,6 +54,8 @@ local function localImport(fileName)
 end
 
 local waveTables = localImport('WaveTables.lua').getWaveTables()
+local textPrinter = localImport('lib/TextPrinter.lua').newInstance()
+local unitCreator = localImport('lib/UnitCreator.lua').newUnitCreator()
 
 local function defaultOptions()
 	if (ScenarioInfo.Options.opt_Survival_BuildTime == nil) then
@@ -67,16 +69,34 @@ local function defaultOptions()
 	if (ScenarioInfo.Options.opt_Survival_WaveFrequency == nil) then
 		ScenarioInfo.Options.opt_Survival_WaveFrequency = 10;
 	end
+
+	if (ScenarioInfo.Options.opt_CenterAutoReclaim == nil) then
+		ScenarioInfo.Options.opt_CenterAutoReclaim = 0;
+	end
 end
 
--- called at start to read various settings
---------------------------------------------------------------------------
+local function setupAutoReclaim()
+	local percentage = ScenarioInfo.Options.opt_CenterAutoReclaim
+
+	if percentage > 0 then
+		unitCreator.onUnitCreated(function(unit, unitInfo)
+			if unitInfo.isSurvivalSpawned then
+				unit.CreateWreckage = function() end
+			end
+		end)
+
+		ForkThread(
+			localImport('lib/AutoReclaim.lua').AutoResourceThread,
+			percentage / 100,
+			percentage / 100
+		)
+	end
+end
+
 function OnPopulate()
 	ScenarioUtils.InitializeArmies()
 
 	defaultOptions()
-
-	local textPrinter = localImport('lib/TextPrinter.lua').newInstance()
 
 	ForkThread(function()
 		SetArmyColor("ARMY_SURVIVAL_ENEMY", 110, 90, 90)
@@ -94,14 +114,22 @@ function OnPopulate()
 		SetArmyColor("ARMY_SURVIVAL_ENEMY", 110, 90, 90)
 	end)
 
-	-- prepare all the survival stuff
-	Survival_InitGame();
-
-	-- ScenarioFramework.SetPlayableArea('AREA_1' , false) -- restrict playable area because the map is too big
+	Survival_InitGame()
+	setupAutoReclaim()
 
 end
 
+local function createSurvivalUnit(blueprint, x, z, y)
+    local unit = unitCreator.spawnSurvivalUnit({
+        blueprintName = blueprint,
+        armyName = "ARMY_SURVIVAL_ENEMY",
+        x = x,
+        z = z,
+        y = y
+    })
 
+    return unit
+end
 
 -- econ adjust based on who is playing
 -- taken from original survival/Jotto
@@ -585,8 +613,6 @@ local function spawnWaveTable(waveTable)
 
 	Survival_SpawnUnit(
 		Survival_GetUnitFromTable(UnitTable), -- pick a random unit id from this table
-		"ARMY_SURVIVAL_ENEMY",
-		Survival_GetPOS(3, 25),
 		UnitTable[2] -- get the order id from this unit table (always 2nd entry)
 	);
 end
@@ -605,12 +631,13 @@ end
 
 -- spawns a specified unit
 --------------------------------------------------------------------------
-Survival_SpawnUnit = function(UnitID, ArmyID, POS, OrderID) -- blueprint, army, position, order
+Survival_SpawnUnit = function(UnitID, OrderID) -- blueprint, army, position, order
+    local POS = Survival_GetPOS(3, 25)
 
 --	LOG("----- Survival MOD: SPAWNUNIT: Start function...");
 	local PlatoonList = {};
 
-	local NewUnit = CreateUnitHPR(UnitID, ArmyID, POS[1], POS[2], POS[3], 0,0,0);
+	local NewUnit = createSurvivalUnit(UnitID, POS[1], POS[2], POS[3])
 
 	-- prevent wreckage from enemy units
 --	local BP = NewUnit:GetBlueprint();
@@ -621,7 +648,7 @@ Survival_SpawnUnit = function(UnitID, ArmyID, POS, OrderID) -- blueprint, army, 
 	NewUnit:SetProductionPerSecondEnergy(325);
 
 	table.insert(PlatoonList, NewUnit); -- add unit to a platoon
-	Survival_PlatoonOrder(ArmyID, PlatoonList, OrderID); -- give the unit orders
+	Survival_PlatoonOrder("ARMY_SURVIVAL_ENEMY", PlatoonList, OrderID); -- give the unit orders
 
 end
 
