@@ -1,6 +1,6 @@
 ## Version History
 
-### Entropy Edition 1
+### Entropy Edition 3 (first working EE version)
 
 2019-02-24
 
