@@ -70,9 +70,13 @@ local function defaultOptions()
 		ScenarioInfo.Options.opt_Survival_WaveFrequency = 10;
 	end
 
-	if (ScenarioInfo.Options.opt_CenterAutoReclaim == nil) then
-		ScenarioInfo.Options.opt_CenterAutoReclaim = 0;
-	end
+    if (ScenarioInfo.Options.opt_CenterAutoReclaim == nil) then
+        ScenarioInfo.Options.opt_CenterAutoReclaim = 0;
+    end
+
+    if (ScenarioInfo.Options.opt_CenterAllFactions == nil) then
+        ScenarioInfo.Options.opt_CenterAllFactions = 0;
+    end
 end
 
 local function setupAutoReclaim()
@@ -91,6 +95,27 @@ local function setupAutoReclaim()
 			percentage / 100
 		)
 	end
+end
+
+local function isPlayerArmy(armyName)
+    return armyName == "ARMY_1" or armyName == "ARMY_2" or armyName == "ARMY_3" or armyName == "ARMY_4"
+            or armyName == "ARMY_5" or armyName == "ARMY_6" or armyName == "ARMY_7" or armyName == "ARMY_8"
+end
+
+local function setupAllFactions()
+    if ScenarioInfo.Options.opt_CenterAllFactions ~= 0 then
+        local allFactions = localImport('lib/AllFactions.lua')
+
+        for armyIndex, armyName in ListArmies() do
+            if isPlayerArmy(armyName) then
+                if ScenarioInfo.Options.opt_CenterAllFactions == 1 then
+                    allFactions.spawnExtraEngineers(ArmyBrains[armyIndex])
+                else
+                    allFactions.spawnExtraAcus(ArmyBrains[armyIndex])
+                end
+            end
+        end
+    end
 end
 
 function OnPopulate()
@@ -114,9 +139,9 @@ function OnPopulate()
 		SetArmyColor("ARMY_SURVIVAL_ENEMY", 110, 90, 90)
 	end)
 
+    setupAutoReclaim()
+    setupAllFactions()
 	Survival_InitGame()
-	setupAutoReclaim()
-
 end
 
 local function createSurvivalUnit(blueprint, x, z, y)

@@ -75,4 +75,16 @@ options =
 			{ text = "over 9000 percent", help = "You know you want it", key = 9001, },
 		},
 	},
+	{
+		default = 1,
+		label = "All Factions",
+		help = "When enabled, each player get extra engineers or ACUs",
+		key = 'opt_CenterAllFactions',
+		pref = 'opt_CenterAllFactions',
+		values = {
+			{ text = "Disabled", help = "No extra units", key = 0, },
+			{ text = "Enabled - engineers", help = "Each player gets 3 extra T1 engies", key = 1, },
+			{ text = "Enabled - ACUs", help = "Each player gets 3 extra ACUs", key = 2, },
+		}
+	},
 };
