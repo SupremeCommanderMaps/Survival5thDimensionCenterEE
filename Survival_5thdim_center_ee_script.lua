@@ -118,11 +118,7 @@ local function setupAllFactions()
     end
 end
 
-function OnPopulate()
-	ScenarioUtils.InitializeArmies()
-
-	defaultOptions()
-
+local function setBotColor()
 	ForkThread(function()
 		SetArmyColor("ARMY_SURVIVAL_ENEMY", 110, 90, 90)
 
@@ -138,7 +134,14 @@ function OnPopulate()
 		colorChanger.stop()
 		SetArmyColor("ARMY_SURVIVAL_ENEMY", 110, 90, 90)
 	end)
+end
 
+function OnPopulate()
+	ScenarioUtils.InitializeArmies()
+
+	defaultOptions()
+
+	setBotColor()
     setupAutoReclaim()
     setupAllFactions()
 	Survival_InitGame()
