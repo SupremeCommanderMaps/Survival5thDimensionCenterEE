@@ -39,9 +39,6 @@ local Survival_NukeUnits = {};
 local Survival_ArtySpots = {};
 local Survival_NukeSpots = {};
 
-local Survival_NextNukeTime = 10000
-local Survival_NukeFrequency = 135;
-
 local Survival_ObjectiveTime = 2400;
 
 local function localImport(fileName)
@@ -308,9 +305,6 @@ Survival_InitGame = function()
 	Survival_SpawnPrebuild();
 
 	Survival_CalcWaveCounts(); -- calculate how many units per wave
-	Survival_CalcNukeFrequency(); -- calculate how frequently to launch nukes at the players (once launchers are spawned)
-
---	Survival_ObjectiveTime = Survival_ObjectiveTime * 60;
 
 end
 
@@ -526,17 +520,6 @@ end
 
 
 
--- warns players about damage to defense object
---------------------------------------------------------------------------
---Survival_DefDamage = function()
---	BroadcastMSG("The Aeon Accelerator is taking damage!");
---	LOG("----- Survival MOD: DefDamage()");
---	Survival_DefCheckHP = 0;
---	Survival_DefLastHP
---end
-
-
-
 -- loops every TickInterval to progress main game logic
 --------------------------------------------------------------------------
 Survival_Tick = function(self)
@@ -613,11 +596,6 @@ Survival_Tick = function(self)
 			end
 
 			Survival_DefLastHP = Survival_DefUnit:GetHealth();
-
-			-- nuke stuff
-			if (Survival_CurrentTime >= Survival_NextNukeTime) then
-				Survival_FireNuke();
-			end
 
 			WaitSeconds(Survival_TickInterval);
 		end
@@ -698,34 +676,6 @@ end
 
 
 
-
-
--- launches a nuke from a random silo
---------------------------------------------------------------------------
-Survival_FireNuke = function()
-
-	LOG("----- Survival MOD: FIRENUKE: Start function...");
-
-	local RandID = 1;
-
-	if (Survival_CurrentTime >= Survival_NextNukeTime) then
-
-		LOG("----- Survival MOD: FIRENUKE: CurrentTime > NextNukeTime...");
-
-		if (table.getn(Survival_NukeUnits) >= 1) then
-
-			LOG("----- Survival MOD: FIRENUKE: table.getn >= 1...");
-
-			RandID = math.random(1, table.getn(Survival_NukeUnits)); -- pick a random nuke launcher
-			Survival_NukeUnits[RandID]:GiveNukeSiloAmmo(1); -- give it 1 ammo
-			IssueNuke({Survival_NukeUnits[RandID]}, ScenarioUtils.MarkerToPosition('SURVIVAL_CENTER_1' ) );
-
-			Survival_NextNukeTime = Survival_CurrentTime + Survival_NukeFrequency; -- update counter for next time
-		end
-	end
-end
-
-
 -- returns a random unit from within a specified unit table
 --------------------------------------------------------------------------
 Survival_GetUnitFromTable = function(UnitTable)
@@ -760,24 +710,6 @@ Survival_GetPOS = function(MarkerType, Randomization)
  	elseif (MarkerType == 5) then
  		table.remove(Survival_MarkerRefs[5], RandID);
  	end
- 
---	if (MarkerType == 1) then
---		MarkerName = "SURVIVAL_CENTER_" .. RandID;
---	elseif (MarkerType == 2) then
---		MarkerName = "SURVIVAL_PATH_" .. RandID;
---	elseif (MarkerType == 3) then
---		MarkerName = "SURVIVAL_SPAWN_" .. RandID;
---	elseif (MarkerType == 4) then
---		MarkerName = "SURVIVAL_ARTY_" .. RandID;
---		table.remove(Survival_MarkerRefs[4]);
---	elseif (MarkerType == 5) then
---		MarkerName = "SURVIVAL_NUKE_" .. RandID;
---		table.remove(Survival_MarkerRefs[5]);
---	else
---		return nil;
---	end
-
---	local POS = Survival_RandomizePOS(ScenarioUtils.MarkerToPosition(MarkerName), Randomization);
 
 	return POS;
 
@@ -857,25 +789,6 @@ function Survival_CalcWaveCounts()
 
 end
 
-
-
--- calculates how many units to spawn per wave
---------------------------------------------------------------------------
-function Survival_CalcNukeFrequency()
-
-	local RatioEPM = (math.min(ScenarioInfo.Options.opt_Survival_EnemiesPerMinute, 64) - 16) / 48; -- returns 0-1 based on EPM difficulty
-	
-	 -- Additional difficulty scaling.  This increases the nuke frequency by 3 seconds for every 8 points of difficulty.
-	RatioEPM = RatioEPM + math.max(ScenarioInfo.Options.opt_Survival_EnemiesPerMinute - 64, 0) * 0.00625;
-	
-	
-	local RatioPC = (Survival_PlayerCount - 1) / 3; -- returns 0-1 based on player count
-
- 	Survival_NukeFrequency = 135 - (RatioPC * 60) - (RatioEPM * 60);
-
-	LOG("----- Survival MOD: CalcNukeFrequency = " .. " 135 - (RatioEPM: " .. RatioEPM * 60 .. "/" .. RatioEPM .. ") - (RatioPC: " .. RatioPC * 60 .. "/" .. RatioPC .. ") = " .. Survival_NukeFrequency);
-
-end
 
 
 
