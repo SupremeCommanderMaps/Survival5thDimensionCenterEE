@@ -251,12 +251,8 @@ Survival_InitGame = function()
 	Survival_NextSpawnTime = ScenarioInfo.Options.opt_Survival_BuildTime; -- set first wave time to build time
 	Survival_MinWarnTime = Survival_NextSpawnTime - 60; -- set time for minute warning
 
-	-- opt_Survival_EnemiesPerMinute
-
 
 	ScenarioInfo.Options.Victory = 'sandbox'; -- force sandbox in order to implement our own rules
-
-	--Utilities.UserConRequest("ui_ForceLifbarsOnEnemy"); -- force drawing of enemy life bars
 
 	Survival_PlayerCount = 0;
 	
@@ -483,6 +479,10 @@ Survival_SpawnPrebuild = function()
 end
 
 
+local function SecondsToTime(Seconds)
+	return string.format("%02d:%02d", math.floor(Seconds / 60), math.mod(Seconds, 60));
+end
+
 
 -- loops every TickInterval to progress main game logic
 --------------------------------------------------------------------------
@@ -685,8 +685,6 @@ end
 --------------------------------------------------------------------------
 Survival_PlatoonOrder = function(ArmyID, UnitList, OrderID)	
 
---	LOG("----- Survival MOD: PLATOON: Start function...");
-
 	if (UnitList == nil) then
 		return;
 	end
@@ -754,18 +752,6 @@ function Survival_CalcWaveCounts()
 end
 
 
-
-
--- misc functions
---------------------------------------------------------------------------
-
-
--- returns hh:mm:ss from second count
--- taken from original survival script
-SecondsToTime = function(Seconds)
-	return string.format("%02d:%02d", math.floor(Seconds / 60), math.mod(Seconds, 60));
-end
-
 -- broadcast a text message to players
 -- modified version of original survival script function
 BroadcastMSG = function(MSG, Fade, TextColor)
@@ -789,26 +775,3 @@ Survival_RandomizePOS = function(POS, x)
 	return NewPOS;
 
 end
-
-
---function OverrideDoDamage(self, instigator, amount, vector, damageType)
---    local preAdjHealth = self:GetHealth()
---    self:AdjustHealth(instigator, -amount)
---    local health = self:GetHealth()
---    if (( health <= 0 ) or ( amount > preAdjHealth )) and not self.KilledFlag then
---        self.KilledFlag = true
---        if( damageType == 'Reclaimed' ) then
---            self:Destroy()
---        else
---            local excessDamageRatio = 0.0
---            # Calculate the excess damage amount
---            local excess = preAdjHealth - amount
---            local maxHealth = self:GetMaxHealth()
---            if(excess < 0 and maxHealth > 0) then
---                excessDamageRatio = -excess / maxHealth
---            end
---            IssueClearCommands({self})
---            ForkThread( UnlockAndKillUnitThread, self, instigator, damageType, excessDamageRatio )
---        end
---    end
---end
