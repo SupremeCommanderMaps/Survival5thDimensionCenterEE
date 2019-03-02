@@ -1,7 +1,7 @@
 options = 
 {
 	{ 
-		default = 6, 
+		default = 9,
 		label = "Survival: Build Time", 
 		help = "Length of initial building time.", 
 		key = 'opt_Survival_BuildTime', 

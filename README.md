@@ -1,5 +1,11 @@
 ## Version History
 
+### Entropy Edition 4
+
+2019-03-
+
+* Changed default build time from 2:30 to 5:00
+
 ### Entropy Edition 3 (first working EE version)
 
 2019-02-24

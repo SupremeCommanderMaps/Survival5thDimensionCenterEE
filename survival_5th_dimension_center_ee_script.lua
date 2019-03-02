@@ -1,17 +1,12 @@
--- Survival MOD Script v1.1
--- Created by Brock Samson
--- Modified by Duck_42
 -- Based on Survival Extreme V3FA script
+-- First modified by Brock Samson
+-- Then modified by Duck_42
+-- And finally modified by EntropyWins
 
--- import
---------------------------------------------------------------------------
 local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua');
 local ScenarioFramework = import('/lua/ScenarioFramework.lua');
 local Utilities = import('/lua/utilities.lua');
 
-
--- class variables
---------------------------------------------------------------------------
 local Survival_TickInterval = 0.50; -- how much delay between each script iteration
 
 local Survival_NextSpawnTime = 0;
@@ -44,13 +39,13 @@ local Survival_NukeUnits = {};
 local Survival_ArtySpots = {};
 local Survival_NukeSpots = {};
 
-local Survival_NextNukeTime = 10000; --2040;
+local Survival_NextNukeTime = 10000
 local Survival_NukeFrequency = 135;
 
-local Survival_ObjectiveTime = 2400; --2160 --2160;
+local Survival_ObjectiveTime = 2400;
 
 local function localImport(fileName)
-	return import('/maps/survival_5th_dimension_center_ee.v0003/src/' .. fileName)
+	return import('/maps/survival_5th_dimension_center_ee.v0004/src/' .. fileName)
 end
 
 local waveTables = localImport('WaveTables.lua').getWaveTables()
@@ -59,7 +54,7 @@ local unitCreator = localImport('lib/UnitCreator.lua').newUnitCreator()
 
 local function defaultOptions()
 	if (ScenarioInfo.Options.opt_Survival_BuildTime == nil) then
-		ScenarioInfo.Options.opt_Survival_BuildTime = 150;
+		ScenarioInfo.Options.opt_Survival_BuildTime = 300;
 	end
 
 	if (ScenarioInfo.Options.opt_Survival_EnemiesPerMinute == nil) then
@@ -575,7 +570,7 @@ Survival_Tick = function(self)
 					Sync.ObjectiveTimer = 0; -- clear objective timer
 					Survival_GameState = 1; -- update game state to combat mode
 					BroadcastMSG("Space Vikings are attacking!", 4);
-					Survival_SpawnWave(Survival_NextSpawnTime);
+					Survival_SpawnWave()
 					Survival_NextSpawnTime = Survival_NextSpawnTime + ScenarioInfo.Options.opt_Survival_WaveFrequency; -- update next wave spawn time by wave frequency
 
 				else -- build period still active
@@ -596,7 +591,7 @@ Survival_Tick = function(self)
 				Sync.ObjectiveTimer = math.floor(Survival_ObjectiveTime - Survival_CurrentTime); -- update objective timer
 
 				if (Survival_CurrentTime >= Survival_NextSpawnTime) then -- ready to spawn a wave
-					Survival_SpawnWave(Survival_NextSpawnTime);
+					Survival_SpawnWave()
 					Survival_NextSpawnTime = Survival_NextSpawnTime + ScenarioInfo.Options.opt_Survival_WaveFrequency; -- update next wave spawn time by wave frequency
 				end
 
@@ -639,12 +634,12 @@ end
 -- updates spawn waves
 --------------------------------------------------------------------------
 Survival_UpdateWaves = function(GameTime)
-	for y = waveTables[1], table.getn(waveTables) do -- loop through each wave table within the category
+	for waveIndex = waveTables[1], table.getn(waveTables) do -- loop through each wave table within the category
 
-		if (GameTime >= (waveTables[y][1] * 60)) then -- compare spawn time against the first entry spawn time for each wave table
-			if (waveTables[1] < y) then -- should only update a wave once
+		if (GameTime >= (waveTables[waveIndex][1] * 60)) then -- compare spawn time against the first entry spawn time for each wave table
+			if (waveTables[1] < waveIndex) then -- should only update a wave once
 			
-				waveTables[1] = y; -- update the wave id for this wave category
+				waveTables[1] = waveIndex; -- update the wave id for this wave category
 			end
 		else
 			break;
@@ -666,7 +661,7 @@ local function spawnWaveTable(waveTable)
 	);
 end
 
-Survival_SpawnWave = function(SpawnTime)
+Survival_SpawnWave = function()
 	-- for the amount of units we spawn in per wave
 	if (table.getn(waveTables[waveTables[1]]) > 1) then -- only do a wave spawn if there is a wave table available
 		-- for the amount of units we spawn in per wave
@@ -859,7 +854,6 @@ function Survival_CalcWaveCounts()
 	Survival_UnitCountPerMinute = ScenarioInfo.Options.opt_Survival_EnemiesPerMinute * Survival_PlayerCount;
 	Survival_UnitCountPerWave = Survival_UnitCountPerMinute * WaveMultiplier;
 	LOG("----- Survival MOD: CalcWaveCounts = ((" .. ScenarioInfo.Options.opt_Survival_EnemiesPerMinute .. " EPM * " .. Survival_PlayerCount .. " Players = " .. Survival_UnitCountPerMinute .. ")) * ((" .. ScenarioInfo.Options.opt_Survival_WaveFrequency .. " Second Waves / 60 = " .. WaveMultiplier .. ")) = " .. Survival_UnitCountPerWave .. " Units Per Wave     (( with Waves Per Minute of " .. (60 / ScenarioInfo.Options.opt_Survival_WaveFrequency) .. " = " .. (Survival_UnitCountPerWave * (60 / ScenarioInfo.Options.opt_Survival_WaveFrequency)) .. " of " .. Survival_UnitCountPerMinute .. " Units Per Minute.");
---	LOG("----- Survival MOD: CalcWaveCounts() accounts for " .. Survival_UnitCountPerWave .. " of " .. Survival_UnitCountPerMinute .. " units " .. (60 / ScenarioInfo.Options.opt_Survival_WaveFrequency) .. " times per minute.");
 
 end
 
@@ -880,7 +874,6 @@ function Survival_CalcNukeFrequency()
  	Survival_NukeFrequency = 135 - (RatioPC * 60) - (RatioEPM * 60);
 
 	LOG("----- Survival MOD: CalcNukeFrequency = " .. " 135 - (RatioEPM: " .. RatioEPM * 60 .. "/" .. RatioEPM .. ") - (RatioPC: " .. RatioPC * 60 .. "/" .. RatioPC .. ") = " .. Survival_NukeFrequency);
---	LOG("----- Survival MOD: CalcWaveCounts() accounts for " .. Survival_UnitCountPerWave .. " of " .. Survival_UnitCountPerMinute .. " units " .. (60 / ScenarioInfo.Options.opt_Survival_WaveFrequency) .. " times per minute.");
 
 end
 
