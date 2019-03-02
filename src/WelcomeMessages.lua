@@ -8,7 +8,7 @@ newInstance = function(textPrinter, options)
 
         textPrinter.print(string.rep(" ", 20) .. "Welcome to", headerOptions)
         textPrinter.print(string.rep(" ", 12) .. "5th Dimension Center Survival", titleOptions)
-        textPrinter.print(string.rep(" ", 39) .. "Entropy Edition, version 1", headerOptions)
+        textPrinter.print(string.rep(" ", 39) .. "Entropy Edition, version 4", headerOptions)
         textPrinter.printBlankLine(textOptions)
         textPrinter.printBlankLine(textOptions)
         textPrinter.print(string.rep(" ", 20) .. "Enemies spawn in " .. options.opt_Survival_BuildTime .. " seconds", textOptions)

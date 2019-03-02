@@ -2,9 +2,10 @@
 
 ### Entropy Edition 4
 
-2019-03-
+2019-03-02
 
 * Changed default build time from 2:30 to 5:00
+* Fixed disco mode timing
 
 ### Entropy Edition 3 (first working EE version)
 
