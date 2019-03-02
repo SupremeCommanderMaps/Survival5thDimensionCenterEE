@@ -1,7 +1,7 @@
 version = 3
 ScenarioInfo = {
     name = 'Survival 5th Dimension Center EE',
-    map_version=3,
+    map_version=4,
     description = 'Based on Original Survival 5th dimension :*GameSettings* Put 4 AI ACUs in slots 5-8.  Player ACUs go in slots 1-4.  The 4 AI commanders are in prison, and it is your job to defend the position until the teleporter can be finished.  Modified by Phelom, Spoon, and Duck_42.  Thanks to the map author.',
     type = 'skirmish',
     starts = true,
