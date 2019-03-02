@@ -108,14 +108,14 @@ local function setBotColor()
 	ForkThread(function()
 		SetArmyColor("ARMY_SURVIVAL_ENEMY", 110, 90, 90)
 
-		WaitSeconds(900) -- Start at wave set 16
+		WaitSeconds(900 + 10) -- Start just after wave set 16
 
 		textPrinter.print("DISCO MODE RANGEBOTS!", {size = 22})
 
 		local colorChanger = localImport('lib/ColorChanger.lua').newInstance("ARMY_SURVIVAL_ENEMY")
 		colorChanger.start()
 
-		WaitSeconds(60) -- End at wave set 17
+		WaitSeconds(60) -- Duration of wave set 16
 
 		colorChanger.stop()
 		SetArmyColor("ARMY_SURVIVAL_ENEMY", 110, 90, 90)
