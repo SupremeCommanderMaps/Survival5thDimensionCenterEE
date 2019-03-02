@@ -117,7 +117,7 @@ local function setBotColor()
 	ForkThread(function()
 		SetArmyColor("ARMY_SURVIVAL_ENEMY", 110, 90, 90)
 
-		WaitSeconds(ScenarioInfo.Options.opt_Survival_BuildTime + 900) -- Start at wave set 16
+		WaitSeconds(900) -- Start at wave set 16
 
 		textPrinter.print("DISCO MODE RANGEBOTS!", {size = 22})
 
