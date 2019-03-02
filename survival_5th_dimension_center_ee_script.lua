@@ -33,12 +33,6 @@ local Survival_DefUnit = nil;
 local Survival_DefCheckHP = 0.0;
 local Survival_DefLastHP = 0;
 
-local Survival_ArtyUnits = {};
-local Survival_NukeUnits = {};
-
-local Survival_ArtySpots = {};
-local Survival_NukeSpots = {};
-
 local Survival_ObjectiveTime = 2400;
 
 local function localImport(fileName)
@@ -320,7 +314,7 @@ Survival_InitMarkers = function()
 	local Break = 0;
 	local i = 1;
 
-	while (Break < 5) do
+	while (Break < 3) do
 
 		Break = 0; -- reset break counter
 
@@ -356,36 +350,6 @@ Survival_InitMarkers = function()
 			end
 			
 --			Survival_MarkerCounts[3] = Survival_MarkerCounts[3] + 1;
-		else
-			Break = Break + 1;
-		end
-
-		-- arty
-		MarkerRef = GetMarker("SURVIVAL_ARTY_" .. i);
-
-		if (MarkerRef ~= nil) then
-			for x, army in ListArmies() do -- loop through army list
-				if (MarkerRef.SpawnWithArmy == army) then -- if this army is present
-					table.insert(Survival_MarkerRefs[4], MarkerRef);
-					break;
-				end
-			end
---			Survival_MarkerCounts[4] = Survival_MarkerCounts[4] + 1;
-		else
-			Break = Break + 1;
-		end
-
-		-- nuke
-		MarkerRef = GetMarker("SURVIVAL_NUKE_" .. i);
-
-		if (MarkerRef ~= nil) then
-			for x, army in ListArmies() do -- loop through army list
-				if (MarkerRef.SpawnWithArmy == army) then -- if this army is present
-					table.insert(Survival_MarkerRefs[5], MarkerRef);
-					break;
-				end
-			end
---			Survival_MarkerCounts[5] = Survival_MarkerCounts[5] + 1;
 		else
 			Break = Break + 1;
 		end
