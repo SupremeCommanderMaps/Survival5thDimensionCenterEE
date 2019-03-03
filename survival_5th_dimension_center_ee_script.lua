@@ -390,7 +390,7 @@ Survival_SpawnDef = function()
 				"The defense object has been destroyed. You have lost!",
 				{ color = "ffff5555", duration = 8 }
 			)
-		
+
 			LOG("----------- SCEE: OnKilled 3")
 
 			Survival_GameState = 3;
@@ -602,7 +602,7 @@ Survival_SpawnUnit = function(UnitID, OrderID) -- blueprint, army, position, ord
 	NewUnit:SetProductionPerSecondEnergy(325);
 
 	table.insert(PlatoonList, NewUnit); -- add unit to a platoon
-	Survival_PlatoonOrder("ARMY_SURVIVAL_ENEMY", PlatoonList, OrderID); -- give the unit orders
+	Survival_PlatoonOrder(PlatoonList, OrderID); -- give the unit orders
 
 end
 
@@ -651,13 +651,13 @@ end
 
 -- test platoon order function
 --------------------------------------------------------------------------
-Survival_PlatoonOrder = function(ArmyID, UnitList, OrderID)	
+Survival_PlatoonOrder = function(UnitList, OrderID)
 
 	if (UnitList == nil) then
 		return;
 	end
 
-	local aiBrain = GetArmyBrain(ArmyID); --"ARMY_SURVIVAL_ENEMY");
+	local aiBrain = GetArmyBrain("ARMY_SURVIVAL_ENEMY")
 	local aiPlatoon = aiBrain:MakePlatoon('','');
 	aiBrain:AssignUnitsToPlatoon(aiPlatoon, UnitList, 'Attack', 'None'); -- platoon, unit list, "mission" and formation
 
