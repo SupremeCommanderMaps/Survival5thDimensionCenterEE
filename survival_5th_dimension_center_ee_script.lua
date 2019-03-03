@@ -557,6 +557,26 @@ Survival_UpdateWaves = function(GameTime)
 	end
 end
 
+local function Survival_GetPOS(MarkerType, Randomization)
+	local RandID = 1
+
+	RandID = math.random(1, table.getn(Survival_MarkerRefs[MarkerType]));  -- get a random value from the selected marker count
+
+	if (RandID == 0) then
+		return nil
+	end
+
+	local POS = Survival_MarkerRefs[MarkerType][RandID].position;
+
+	if (MarkerType == 4) then
+		table.remove(Survival_MarkerRefs[4], RandID);
+	elseif (MarkerType == 5) then
+		table.remove(Survival_MarkerRefs[5], RandID);
+	end
+
+	return POS
+end
+
 
 local function Survival_SpawnUnit(UnitID, OrderID)
 	local POS = Survival_GetPOS(3, 25)
@@ -658,34 +678,6 @@ Survival_GetUnitFromTable = function(UnitTable)
 	local UnitID = UnitTable[RandID];
 
 	return UnitID;
-
-end
-
-
-
--- returns a random spawn position
---------------------------------------------------------------------------
-Survival_GetPOS = function(MarkerType, Randomization)
-
-	local RandID = 1;
---	local MarkerName = nil;
-
-	RandID = math.random(1, table.getn(Survival_MarkerRefs[MarkerType]));  -- get a random value from the selected marker count
---	LOG("----- Survival MOD: GetPOS: RandID[" .. RandID .. "]");
-
-	if (RandID == 0) then
-		return nil;
-	end
-
- 	local POS = Survival_MarkerRefs[MarkerType][RandID].position;
- 
- 	if (MarkerType == 4) then
- 		table.remove(Survival_MarkerRefs[4], RandID);
- 	elseif (MarkerType == 5) then
- 		table.remove(Survival_MarkerRefs[5], RandID);
- 	end
-
-	return POS;
 
 end
 
