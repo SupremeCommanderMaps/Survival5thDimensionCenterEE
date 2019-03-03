@@ -36,7 +36,7 @@ local Survival_DefLastHP = 0;
 local Survival_ObjectiveTime = 2400;
 
 local function localImport(fileName)
-	return import('/maps/survival_5th_dimension_center_ee.v0004/src/' .. fileName)
+	return import('/maps/survival_5th_dimension_center_ee.v0005/src/' .. fileName)
 end
 
 local waveTables = localImport('WaveTables.lua').getWaveTables()
@@ -125,7 +125,8 @@ end
 local function showWelcomeMessages()
 	local welcomeMessages = localImport('WelcomeMessages.lua').newInstance(
 		textPrinter,
-		ScenarioInfo.Options
+		ScenarioInfo.Options,
+		ScenarioInfo.map_version
 	)
 
 	welcomeMessages.startDisplay()

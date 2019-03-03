@@ -1,4 +1,4 @@
-newInstance = function(textPrinter, options)
+newInstance = function(textPrinter, options, mapVersion)
     local WELCOME_MESSAGE_DURATION = 16
 
     local function displayWeclome()
@@ -8,13 +8,12 @@ newInstance = function(textPrinter, options)
 
         textPrinter.print(string.rep(" ", 20) .. "Welcome to", headerOptions)
         textPrinter.print(string.rep(" ", 12) .. "5th Dimension Center Survival", titleOptions)
-        textPrinter.print(string.rep(" ", 39) .. "Entropy Edition, version 4", headerOptions)
+        textPrinter.print(string.rep(" ", 39) .. "Entropy Edition, version " .. mapVersion, headerOptions)
         textPrinter.printBlankLine(textOptions)
         textPrinter.printBlankLine(textOptions)
         textPrinter.print(string.rep(" ", 20) .. "Enemies spawn in " .. options.opt_Survival_BuildTime .. " seconds", textOptions)
         textPrinter.print(string.rep(" ", 20) .. "Enemies spawn every " .. options.opt_Survival_WaveFrequency .. " seconds", textOptions)
         textPrinter.print(string.rep(" ", 20) .. "Difficulty " .. options.opt_Survival_EnemiesPerMinute, textOptions)
-        textPrinter.print(string.rep(" ", 20) .. "Survival nukes: off", textOptions)
 
         textPrinter.print(
             string.rep(" ", 20) .. "Auto reclaim: " ..
@@ -25,6 +24,8 @@ newInstance = function(textPrinter, options)
                     ),
             textOptions
         )
+
+        textPrinter.print(string.rep(" ", 20) .. "Survival nukes: off", textOptions)
     end
 
     return {
