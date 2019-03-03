@@ -382,12 +382,17 @@ Survival_SpawnDef = function()
 
 	Survival_DefUnit.OnKilled = function(self, instigator, type, overkillRatio)
 		if (Survival_GameState ~= 2) then -- If the timer hasn't expired yet...
+			LOG("----------- SCEE: OnKilled")
+			self.OldOnKilled(self, instigator, type, overkillRatio)
+			LOG("----------- SCEE: OnKilled 2")
+
 			textPrinter.print(
 				"The defense object has been destroyed. You have lost!",
 				{ color = "ffff5555", duration = 8 }
 			)
-			self.OldOnKilled(self, instigator, type, overkillRatio);
-			
+		
+			LOG("----------- SCEE: OnKilled 3")
+
 			Survival_GameState = 3;
 
 			for i, army in ListArmies() do
