@@ -1,3 +1,8 @@
+# Survival 5th Dimension Center EE
+
+Version of the map in the map vault are usually distributed without the .git/ folder.
+You can find the latest version of the code on GitHub at https://github.com/JeroenDeDauw/Survival5thDimensionCenterEE
+
 ## Version History
 
 ### Entropy Edition 4
