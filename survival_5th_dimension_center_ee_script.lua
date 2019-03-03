@@ -385,27 +385,7 @@ Survival_SpawnDef = function()
 	Survival_DefUnitBP.Intel.MinVisionRadius = 350;
 	Survival_DefUnitBP.Intel.VisionRadius = 350;
 
-	Survival_DefUnit:SetIntelRadius('Vision', 350);
-
-       	local ShieldSpecs = {
-            ImpactEffects = 'SeraphimShieldHit01',
-            ImpactMesh = '/effects/entities/ShieldSection01/ShieldSection01_mesh',
-            Mesh = '/effects/entities/SeraphimShield01/SeraphimShield01_mesh',
-            MeshZ = '/effects/entities/Shield01/Shield01z_mesh',
-            RegenAssistMult = 60,
-            ShieldEnergyDrainRechargeTime = 60,
-            ShieldMaxHealth = 55000 + (Survival_PlayerCount_Total * 5000),
-            ShieldRechargeTime = 60,
-            ShieldRegenRate = 290 - (Survival_PlayerCount_Total * 10),
-            ShieldRegenStartTime = 1,
-            ShieldSize = 90,
-            ShieldVerticalOffset = -10,
-        };
-
---	Survival_DefUnitBP.Defense.Shield = ShieldSpecs;
-
---	Survival_DefUnitBP.General.UnitName = 'Acen Accelerator';
---	Survival_DefUnitBP.Interface.HelpText = 'Special Operations Support';
+	Survival_DefUnit:SetIntelRadius('Vision', 350)
 
 	-- when the def object dies
 	Survival_DefUnit.OldOnKilled = Survival_DefUnit.OnKilled;
@@ -428,16 +408,6 @@ Survival_SpawnDef = function()
 	end
 
 	Survival_DefLastHP = Survival_DefUnit:GetHealth();
-
---	ScenarioFramework.CreateUnitDamagedTrigger(Survival_DefDamage, Survival_DefUnit);
-
---### Single Line unit damaged trigger creation
---# When <unit> is damaged it will call the <callbackFunction> provided
---# If <percent> provided, will check if damaged percent EXCEEDS number provided before callback
---# function repeats up to repeatNum ... or once if not declared
---function CreateUnitDamagedTrigger( callbackFunction, unit, amount, repeatNum )
---    TriggerFile.CreateUnitDamagedTrigger( callbackFunction, unit, amount, repeatNum )
---end
 
 end
 
