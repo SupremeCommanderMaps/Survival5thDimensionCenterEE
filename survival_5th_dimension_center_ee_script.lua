@@ -558,9 +558,20 @@ Survival_UpdateWaves = function(GameTime)
 end
 
 
+local function Survival_SpawnUnit(UnitID, OrderID)
+	local POS = Survival_GetPOS(3, 25)
 
--- spawns a wave of units
---------------------------------------------------------------------------
+	local PlatoonList = {};
+
+	local NewUnit = createSurvivalUnit(UnitID, POS[1], POS[2], POS[3])
+
+	NewUnit:SetProductionPerSecondEnergy(325);
+
+	table.insert(PlatoonList, NewUnit); -- add unit to a platoon
+	Survival_PlatoonOrder(PlatoonList, OrderID); -- give the unit orders
+
+end
+
 local function spawnWaveTable(waveTable)
 	-- pick a random unit table from within this wave set
 	local UnitTable = waveTable[math.random(2, table.getn(waveTable))]; -- reference that unit table
@@ -636,28 +647,6 @@ local function Survival_PlatoonOrder(UnitList, OrderID)
 
 end
 
--- spawns a specified unit
---------------------------------------------------------------------------
-Survival_SpawnUnit = function(UnitID, OrderID) -- blueprint, army, position, order
-    local POS = Survival_GetPOS(3, 25)
-
---	LOG("----- Survival MOD: SPAWNUNIT: Start function...");
-	local PlatoonList = {};
-
-	local NewUnit = createSurvivalUnit(UnitID, POS[1], POS[2], POS[3])
-
-	-- prevent wreckage from enemy units
---	local BP = NewUnit:GetBlueprint();
---	if (BP ~= nil) then
---		BP.Wreckage = nil;
---	end
-
-	NewUnit:SetProductionPerSecondEnergy(325);
-
-	table.insert(PlatoonList, NewUnit); -- add unit to a platoon
-	Survival_PlatoonOrder(PlatoonList, OrderID); -- give the unit orders
-
-end
 
 
 
