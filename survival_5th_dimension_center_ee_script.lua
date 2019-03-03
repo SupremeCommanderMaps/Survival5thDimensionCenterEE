@@ -1,6 +1,6 @@
 -- Based on Survival Extreme V3FA script
 -- First modified by Brock Samson
--- Then modified by Duck_42
+-- Then modified by Phelom, Spoon and Duck_42
 -- And finally modified by EntropyWins
 
 local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua');
@@ -359,10 +359,6 @@ Survival_InitMarkers = function()
 
 end
 
-
-
--- spawns a defense object
---------------------------------------------------------------------------
 Survival_SpawnDef = function()
 
 	LOG("----- Survival MOD: Initializing defense object...");
@@ -392,7 +388,10 @@ Survival_SpawnDef = function()
 
 	Survival_DefUnit.OnKilled = function(self, instigator, type, overkillRatio)
 		if (Survival_GameState ~= 2) then -- If the timer hasn't expired yet...
-			BroadcastMSG("The defense object has been destroyed. You have lost!", 8);
+			textPrinter.print(
+				"The defense object has been destroyed. You have lost!",
+				{ color = "ffff5555", duration = 8 }
+			)
 			self.OldOnKilled(self, instigator, type, overkillRatio);
 			
 			Survival_GameState = 3;
@@ -468,7 +467,7 @@ Survival_Tick = function(self)
 		if (Survival_CurrentTime >= Survival_ObjectiveTime) then
 
 			Survival_GameState = 2;
-			BroadcastMSG("The Aeon Accelerator is complete! You have won!", 4);
+			BroadcastMSG("The Defence Object is complete! You have won!", 4);
 			Survival_DefUnit:SetCustomName("CHUCK NORRIS MODE!"); -- update defense object name
 
 			for i, army in ListArmies() do
@@ -520,11 +519,10 @@ Survival_Tick = function(self)
 
 			if (Survival_DefCheckHP <= 0) then
 				if (Survival_DefUnit:GetHealth() < Survival_DefLastHP) then
-					--BroadcastMSG("The Aeon Accelerator is v damage! (" .. Survival_DefUnit:GetHealth() / Survival_DefUnit:GetMaxHealth() .. "%)", 0.5);
 					local health = Survival_DefUnit:GetHealth();
 					local maxHealth = Survival_DefUnit:GetMaxHealth();
 					local defUnitPercent = health / maxHealth;
-					BroadcastMSG("The Aeon Accelerator is taking damage! (" .. math.floor(defUnitPercent * 100) .. "%)", 0.5);
+					BroadcastMSG("The Defence Object is taking damage! (" .. math.floor(defUnitPercent * 100) .. "%)", 0.5);
 
 					Survival_DefCheckHP = 2;
 				end
