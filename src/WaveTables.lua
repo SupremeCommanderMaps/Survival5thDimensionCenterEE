@@ -83,7 +83,7 @@ local tables = {
 
         {"T1 Tank", 4, 'UAL0201', 'URL0107', 'UEL0201', 'XSL0201'},
         {"T1 Tank", 4, 'UAL0201', 'URL0107', 'UEL0201', 'XSL0201'},
-        {"T1 Tank", 1, 'UAL0201', 'URL0107', 'UEL0201', 'XSL0201'}, -- order change to 1
+        {"T1 Tank", 1, 'UAL0201', 'URL0107', 'UEL0201', 'XSL0201'}, 
 
         {"T1 Arty", 2, 'UAL0103', 'URL0103', 'UEL0103', 'XSL0103'},
         {"T1 Arty", 2, 'UAL0103', 'URL0103', 'UEL0103', 'XSL0103'},
@@ -96,7 +96,7 @@ local tables = {
 
         {"T1 Tank", 4, 'UAL0201', 'URL0107', 'UEL0201', 'XSL0201'},
         {"T1 Tank", 4, 'UAL0201', 'URL0107', 'UEL0201', 'XSL0201'},
-        {"T1 Tank", 1, 'UAL0201', 'URL0107', 'UEL0201', 'XSL0201'}, -- order change to 1
+        {"T1 Tank", 1, 'UAL0201', 'URL0107', 'UEL0201', 'XSL0201'}, 
 
         {"T1 Arty", 2, 'UAL0103', 'URL0103', 'UEL0103', 'XSL0103'},
         {"T1 Arty", 2, 'UAL0103', 'URL0103', 'UEL0103', 'XSL0103'},
@@ -109,7 +109,7 @@ local tables = {
 
         {"T1 Tank", 4, 'UAL0201', 'URL0107', 'UEL0201', 'XSL0201'},
         {"T1 Tank", 4, 'UAL0201', 'URL0107', 'UEL0201', 'XSL0201'},
-        {"T1 Tank", 1, 'UAL0201', 'URL0107', 'UEL0201', 'XSL0201'}, -- order change to 1
+        {"T1 Tank", 1, 'UAL0201', 'URL0107', 'UEL0201', 'XSL0201'}, 
 
         {"T1 Arty", 2, 'UAL0103', 'URL0103', 'UEL0103', 'XSL0103'},
         {"T1 Arty", 2, 'UAL0103', 'URL0103', 'UEL0103', 'XSL0103'},
@@ -122,8 +122,8 @@ local tables = {
 
         8.0; -- spawn time
 
-        {"T1 Tank", 1, 'UAL0201', 'URL0107', 'UEL0201', 'XSL0201'}, -- order change to 1
-        {"T1 Tank", 1, 'UAL0201', 'URL0107', 'UEL0201', 'XSL0201'}, -- order change to 1
+        {"T1 Tank", 1, 'UAL0201', 'URL0107', 'UEL0201', 'XSL0201'}, 
+        {"T1 Tank", 1, 'UAL0201', 'URL0107', 'UEL0201', 'XSL0201'}, 
 
         {"T1 Arty", 2, 'UAL0103', 'URL0103', 'UEL0103', 'XSL0103'},
         {"T1 Arty", 2, 'UAL0103', 'URL0103', 'UEL0103', 'XSL0103'},
@@ -139,7 +139,7 @@ local tables = {
 
         9.0; -- spawn time
 
-        {"T1 Tank", 1, 'UAL0201', 'URL0107', 'UEL0201', 'XSL0201'}, -- order change to 1
+        {"T1 Tank", 1, 'UAL0201', 'URL0107', 'UEL0201', 'XSL0201'}, 
         {"T1 Arty", 2, 'UAL0103', 'URL0103', 'UEL0103', 'XSL0103'},
 
         {"T2 Bomb", 2, 'XRL0302'},
@@ -159,7 +159,7 @@ local tables = {
 
         {"T2 Tank", 4, 'XAL0203', 'URL0202', 'UEL0202', 'DEL0204', 'XSL0203'},
         {"T2 Tank", 4, 'XAL0203', 'URL0202', 'UEL0202', 'DEL0204', 'XSL0203'},
-        {"T2 Tank", 1, 'XAL0203', 'URL0202', 'UEL0202', 'DEL0204', 'XSL0203'}, -- order change to 1
+        {"T2 Tank", 1, 'XAL0203', 'URL0202', 'UEL0202', 'DEL0204', 'XSL0203'}, 
 
         {"T2 HeavyTank", 4, 'UAL0202', 'URL0203', 'UEL0203', 'XSL0202'},
 
@@ -173,8 +173,8 @@ local tables = {
         {"T2 Bomb", 2, 'XRL0302'},
 
         {"T2 Tank", 4, 'XAL0203', 'URL0202', 'UEL0202', 'DEL0204', 'XSL0203'},
-        {"T2 Tank", 1, 'XAL0203', 'URL0202', 'UEL0202', 'DEL0204', 'XSL0203'}, -- order change to 1
-        {"T2 Tank", 1, 'XAL0203', 'URL0202', 'UEL0202', 'DEL0204', 'XSL0203'}, -- order change to 1
+        {"T2 Tank", 1, 'XAL0203', 'URL0202', 'UEL0202', 'DEL0204', 'XSL0203'}, 
+        {"T2 Tank", 1, 'XAL0203', 'URL0202', 'UEL0202', 'DEL0204', 'XSL0203'}, 
 
         {"T2 HeavyTank", 4, 'UAL0202', 'URL0203', 'UEL0203', 'XSL0202'},
         {"T2 HeavyTank", 4, 'UAL0202', 'URL0203', 'UEL0203', 'XSL0202'},
@@ -188,12 +188,12 @@ local tables = {
 
         {"T2 Bomb", 2, 'XRL0302'},
 
-        {"T2 Tank", 1, 'XAL0203', 'URL0202', 'UEL0202', 'DEL0204', 'XSL0203'}, -- order change to 1
-        {"T2 Tank", 1, 'XAL0203', 'URL0202', 'UEL0202', 'DEL0204', 'XSL0203'}, -- order change to 1
+        {"T2 Tank", 1, 'XAL0203', 'URL0202', 'UEL0202', 'DEL0204', 'XSL0203'}, 
+        {"T2 Tank", 1, 'XAL0203', 'URL0202', 'UEL0202', 'DEL0204', 'XSL0203'}, 
 
         {"T2 HeavyTank", 4, 'UAL0202', 'URL0203', 'UEL0203', 'XSL0202'},
         {"T2 HeavyTank", 4, 'UAL0202', 'URL0203', 'UEL0203', 'XSL0202'},
-        {"T2 HeavyTank", 1, 'UAL0202', 'URL0203', 'UEL0203', 'XSL0202'}, -- order change to 1
+        {"T2 HeavyTank", 1, 'UAL0202', 'URL0203', 'UEL0203', 'XSL0202'}, 
 
         {"T2 RocketBot", 2, 'DRL0204'},
         {"T2 MML", 2, 'UAL0111', 'URL0111', 'UEL0111', 'XSL0111'},
@@ -204,11 +204,11 @@ local tables = {
 
         13.0; -- spawn time
 
-        {"T2 Tank", 1, 'XAL0203', 'URL0202', 'UEL0202', 'DEL0204', 'XSL0203'}, -- order change to 1
+        {"T2 Tank", 1, 'XAL0203', 'URL0202', 'UEL0202', 'DEL0204', 'XSL0203'}, 
 
         {"T2 HeavyTank", 4, 'UAL0202', 'URL0203', 'UEL0203', 'XSL0202'},
         {"T2 HeavyTank", 4, 'UAL0202', 'URL0203', 'UEL0203', 'XSL0202'},
-        {"T2 HeavyTank", 1, 'UAL0202', 'URL0203', 'UEL0203', 'XSL0202'}, -- order change to 1
+        {"T2 HeavyTank", 1, 'UAL0202', 'URL0203', 'UEL0203', 'XSL0202'}, 
 
         {"T2 RocketBot", 2, 'DRL0204'},
         {"T2 MML", 2, 'UAL0111', 'URL0111', 'UEL0111', 'XSL0111'},
@@ -221,7 +221,7 @@ local tables = {
 
         {"T2 HeavyTank", 4, 'UAL0202', 'URL0203', 'UEL0203', 'XSL0202'},
         {"T2 HeavyTank", 4, 'UAL0202', 'URL0203', 'UEL0203', 'XSL0202'},
-        {"T2 HeavyTank", 1, 'UAL0202', 'URL0203', 'UEL0203', 'XSL0202'}, -- order change to 1
+        {"T2 HeavyTank", 1, 'UAL0202', 'URL0203', 'UEL0203', 'XSL0202'}, 
 
         {"T2 RocketBot", 2, 'DRL0204'},
         {"T2 MML", 2, 'UAL0111', 'URL0111', 'UEL0111', 'XSL0111'},
@@ -240,7 +240,7 @@ local tables = {
 
         16.0; -- spawn time
 
-        {"T2 HeavyTank", 1, 'UAL0202', 'URL0203', 'UEL0203', 'XSL0202'}, -- order change to 1
+        {"T2 HeavyTank", 1, 'UAL0202', 'URL0203', 'UEL0203', 'XSL0202'}, 
 
         {"T2 RocketBot", 2, 'DRL0204'},
         {"T2 MML", 2, 'UAL0111', 'URL0111', 'UEL0111', 'XSL0111'},
@@ -248,7 +248,7 @@ local tables = {
         {"T2 Shield", 3, 'UAL0307', 'UEL0307'},
 
         {"T3 Bot1", 4, 'URL0303', 'UEL0303'},
-        {"T3 Bot1", 1, 'URL0303', 'UEL0303'}, -- order change to 1
+        {"T3 Bot1", 1, 'URL0303', 'UEL0303'}, 
 
         {"T3 Bot2", 4, 'UAL0303', 'XSL0303'},
     },
@@ -262,10 +262,10 @@ local tables = {
         {"T2 Shield", 3, 'UAL0307', 'UEL0307'},
 
         {"T3 Bot1", 4, 'URL0303', 'UEL0303'},
-        {"T3 Bot1", 1, 'URL0303', 'UEL0303'}, -- order change to 1
+        {"T3 Bot1", 1, 'URL0303', 'UEL0303'}, 
 
         {"T3 Bot2", 4, 'UAL0303', 'XSL0303'},
-        {"T3 Bot2", 1, 'UAL0303', 'XSL0303'}, -- order change to 1
+        {"T3 Bot2", 1, 'UAL0303', 'XSL0303'}, 
     },
     { -- Wave Set 19
 
@@ -276,10 +276,10 @@ local tables = {
         {"T2 Shield", 3, 'UAL0307', 'UEL0307'},
 
         {"T3 Bot1", 4, 'URL0303', 'UEL0303'},
-        {"T3 Bot1", 1, 'URL0303', 'UEL0303'}, -- order change to 1
+        {"T3 Bot1", 1, 'URL0303', 'UEL0303'}, 
 
         {"T3 Bot2", 4, 'UAL0303', 'XSL0303'},
-        {"T3 Bot2", 1, 'UAL0303', 'XSL0303'}, -- order change to 1
+        {"T3 Bot2", 1, 'UAL0303', 'XSL0303'}, 
 
         {"T3 Bot3", 4, 'XRL0305', 'XEL0305'},
     },
@@ -293,13 +293,13 @@ local tables = {
         {"T3 Shield", 3, 'XSL0307'},
 
         {"T3 Bot1", 4, 'URL0303', 'UEL0303'},
-        {"T3 Bot1", 1, 'URL0303', 'UEL0303'}, -- order change to 1
+        {"T3 Bot1", 1, 'URL0303', 'UEL0303'}, 
 
         {"T3 Bot2", 4, 'UAL0303', 'XSL0303'},
-        {"T3 Bot2", 1, 'UAL0303', 'XSL0303'}, -- order change to 1
+        {"T3 Bot2", 1, 'UAL0303', 'XSL0303'}, 
 
         {"T3 Bot3", 4, 'XRL0305', 'XEL0305'},
-        {"T3 Bot3", 1, 'XRL0305', 'XEL0305'}, -- order change to 1
+        {"T3 Bot3", 1, 'XRL0305', 'XEL0305'}, 
     },
     { -- Wave Set 21
 
@@ -309,13 +309,13 @@ local tables = {
         {"T3 Shield", 3, 'XSL0307'},
 
         {"T3 Bot1", 4, 'URL0303', 'UEL0303'},
-        {"T3 Bot1", 1, 'URL0303', 'UEL0303'}, -- order change to 1
+        {"T3 Bot1", 1, 'URL0303', 'UEL0303'}, 
 
         {"T3 Bot2", 4, 'UAL0303', 'XSL0303'},
-        {"T3 Bot2", 1, 'UAL0303', 'XSL0303'}, -- order change to 1
+        {"T3 Bot2", 1, 'UAL0303', 'XSL0303'}, 
 
         {"T3 Bot3", 4, 'XRL0305', 'XEL0305'},
-        {"T3 Bot3", 1, 'XRL0305', 'XEL0305'}, -- order change to 1
+        {"T3 Bot3", 1, 'XRL0305', 'XEL0305'}, 
 
         {"T3 MML", 2, 'XEL0306'},
     },
@@ -327,13 +327,13 @@ local tables = {
         {"T3 Shield", 3, 'XSL0307'},
 
         {"T3 Bot1", 4, 'URL0303', 'UEL0303'},
-        {"T3 Bot1", 1, 'URL0303', 'UEL0303'}, -- order change to 1
+        {"T3 Bot1", 1, 'URL0303', 'UEL0303'}, 
 
         {"T3 Bot2", 4, 'UAL0303', 'XSL0303'},
-        {"T3 Bot2", 1, 'UAL0303', 'XSL0303'}, -- order change to 1
+        {"T3 Bot2", 1, 'UAL0303', 'XSL0303'}, 
 
         {"T3 Bot3", 4, 'XRL0305', 'XEL0305'},
-        {"T3 Bot3", 1, 'XRL0305', 'XEL0305'}, -- order change to 1
+        {"T3 Bot3", 1, 'XRL0305', 'XEL0305'}, 
 
         {"T3 Sniper", 2, 'XAL0305', 'XSL0305'},
 
@@ -347,13 +347,13 @@ local tables = {
         {"T3 Shield", 3, 'XSL0307'},
 
         {"T3 Bot1", 4, 'URL0303', 'UEL0303'},
-        {"T3 Bot1", 1, 'URL0303', 'UEL0303'}, -- order change to 1
+        {"T3 Bot1", 1, 'URL0303', 'UEL0303'}, 
 
         {"T3 Bot2", 4, 'UAL0303', 'XSL0303'},
-        {"T3 Bot2", 1, 'UAL0303', 'XSL0303'}, -- order change to 1
+        {"T3 Bot2", 1, 'UAL0303', 'XSL0303'}, 
 
         {"T3 Bot3", 4, 'XRL0305', 'XEL0305'},
-        {"T3 Bot3", 1, 'XRL0305', 'XEL0305'}, -- order change to 1
+        {"T3 Bot3", 1, 'XRL0305', 'XEL0305'}, 
 
         {"T3 Sniper", 2, 'XAL0305', 'XSL0305'},
 
@@ -365,13 +365,13 @@ local tables = {
         {"T3 Shield", 3, 'XSL0307'},
 
         {"T3 Bot1", 4, 'URL0303', 'UEL0303'},
-        {"T3 Bot1", 1, 'URL0303', 'UEL0303'}, -- order change to 1
+        {"T3 Bot1", 1, 'URL0303', 'UEL0303'}, 
 
         {"T3 Bot2", 4, 'UAL0303', 'XSL0303'},
-        {"T3 Bot2", 1, 'UAL0303', 'XSL0303'}, -- order change to 1
+        {"T3 Bot2", 1, 'UAL0303', 'XSL0303'}, 
 
         {"T3 Bot3", 4, 'XRL0305', 'XEL0305'},
-        {"T3 Bot3", 1, 'XRL0305', 'XEL0305'}, -- order change to 1
+        {"T3 Bot3", 1, 'XRL0305', 'XEL0305'}, 
 
         {"T3 Sniper", 2, 'XAL0305', 'XSL0305'},
 
@@ -383,13 +383,13 @@ local tables = {
         {"T3 Shield", 3, 'XSL0307'},
 
         {"T3 Bot1", 4, 'URL0303', 'UEL0303'},
-        {"T3 Bot1", 1, 'URL0303', 'UEL0303'}, -- order change to 1
+        {"T3 Bot1", 1, 'URL0303', 'UEL0303'}, 
 
         {"T3 Bot2", 4, 'UAL0303', 'XSL0303'},
-        {"T3 Bot2", 1, 'UAL0303', 'XSL0303'}, -- order change to 1
+        {"T3 Bot2", 1, 'UAL0303', 'XSL0303'}, 
 
         {"T3 Bot3", 4, 'XRL0305', 'XEL0305'},
-        {"T3 Bot3", 1, 'XRL0305', 'XEL0305'}, -- order change to 1
+        {"T3 Bot3", 1, 'XRL0305', 'XEL0305'}, 
 
         {"T3 Sniper", 2, 'XAL0305', 'XSL0305'},
 
@@ -405,13 +405,13 @@ local tables = {
         {"T3 Shield", 3, 'XSL0307'},
 
         {"T3 Bot1", 4, 'URL0303', 'UEL0303'},
-        {"T3 Bot1", 1, 'URL0303', 'UEL0303'}, -- order change to 1
+        {"T3 Bot1", 1, 'URL0303', 'UEL0303'}, 
 
         {"T3 Bot2", 4, 'UAL0303', 'XSL0303'},
-        {"T3 Bot2", 1, 'UAL0303', 'XSL0303'}, -- order change to 1
+        {"T3 Bot2", 1, 'UAL0303', 'XSL0303'}, 
 
         {"T3 Bot3", 4, 'XRL0305', 'XEL0305'},
-        {"T3 Bot3", 1, 'XRL0305', 'XEL0305'}, -- order change to 1
+        {"T3 Bot3", 1, 'XRL0305', 'XEL0305'}, 
 
         {"T3 Sniper", 2, 'XAL0305', 'XSL0305'},
 
@@ -423,13 +423,13 @@ local tables = {
         {"T3 Shield", 3, 'XSL0307'},
 
         {"T3 Bot1", 4, 'URL0303', 'UEL0303'},
-        {"T3 Bot1", 1, 'URL0303', 'UEL0303'}, -- order change to 1
+        {"T3 Bot1", 1, 'URL0303', 'UEL0303'}, 
 
         {"T3 Bot2", 4, 'UAL0303', 'XSL0303'},
-        {"T3 Bot2", 1, 'UAL0303', 'XSL0303'}, -- order change to 1
+        {"T3 Bot2", 1, 'UAL0303', 'XSL0303'}, 
 
         {"T3 Bot3", 4, 'XRL0305', 'XEL0305'},
-        {"T3 Bot3", 1, 'XRL0305', 'XEL0305'}, -- order change to 1
+        {"T3 Bot3", 1, 'XRL0305', 'XEL0305'}, 
 
         {"T3 Sniper", 2, 'XAL0305', 'XSL0305'},
 
@@ -441,13 +441,13 @@ local tables = {
         {"T3 Shield", 3, 'XSL0307'},
 
         {"T3 Bot1", 4, 'URL0303', 'UEL0303'},
-        {"T3 Bot1", 1, 'URL0303', 'UEL0303'}, -- order change to 1
+        {"T3 Bot1", 1, 'URL0303', 'UEL0303'}, 
 
         {"T3 Bot2", 4, 'UAL0303', 'XSL0303'},
-        {"T3 Bot2", 1, 'UAL0303', 'XSL0303'}, -- order change to 1
+        {"T3 Bot2", 1, 'UAL0303', 'XSL0303'}, 
 
         {"T3 Bot3", 4, 'XRL0305', 'XEL0305'},
-        {"T3 Bot3", 1, 'XRL0305', 'XEL0305'}, -- order change to 1
+        {"T3 Bot3", 1, 'XRL0305', 'XEL0305'}, 
 
         {"T3 Sniper", 2, 'XAL0305', 'XSL0305'},
 
@@ -465,13 +465,13 @@ local tables = {
         {"T3 Shield", 3, 'XSL0307'},
 
         {"T3 Bot1", 4, 'URL0303', 'UEL0303'},
-        {"T3 Bot1", 1, 'URL0303', 'UEL0303'}, -- order change to 1
+        {"T3 Bot1", 1, 'URL0303', 'UEL0303'}, 
 
         {"T3 Bot2", 4, 'UAL0303', 'XSL0303'},
-        {"T3 Bot2", 1, 'UAL0303', 'XSL0303'}, -- order change to 1
+        {"T3 Bot2", 1, 'UAL0303', 'XSL0303'}, 
 
         {"T3 Bot3", 4, 'XRL0305', 'XEL0305'},
-        {"T3 Bot3", 1, 'XRL0305', 'XEL0305'}, -- order change to 1
+        {"T3 Bot3", 1, 'XRL0305', 'XEL0305'}, 
 
         {"T3 Sniper", 2, 'XAL0305', 'XSL0305'},
 
@@ -483,13 +483,13 @@ local tables = {
         {"T3 Shield", 3, 'XSL0307'},
 
         {"T3 Bot1", 4, 'URL0303', 'UEL0303'},
-        {"T3 Bot1", 1, 'URL0303', 'UEL0303'}, -- order change to 1
+        {"T3 Bot1", 1, 'URL0303', 'UEL0303'}, 
 
         {"T3 Bot2", 4, 'UAL0303', 'XSL0303'},
-        {"T3 Bot2", 1, 'UAL0303', 'XSL0303'}, -- order change to 1
+        {"T3 Bot2", 1, 'UAL0303', 'XSL0303'}, 
 
         {"T3 Bot3", 4, 'XRL0305', 'XEL0305'},
-        {"T3 Bot3", 1, 'XRL0305', 'XEL0305'}, -- order change to 1
+        {"T3 Bot3", 1, 'XRL0305', 'XEL0305'}, 
 
         {"T3 Sniper", 2, 'XAL0305', 'XSL0305'},
 
@@ -501,19 +501,19 @@ local tables = {
         {"T3 Shield", 3, 'XSL0307'},
 
         {"T3 Bot1", 4, 'URL0303', 'UEL0303'},
-        {"T3 Bot1", 1, 'URL0303', 'UEL0303'}, -- order change to 1
+        {"T3 Bot1", 1, 'URL0303', 'UEL0303'}, 
 
         {"T3 Bot2", 4, 'UAL0303', 'XSL0303'},
-        {"T3 Bot2", 1, 'UAL0303', 'XSL0303'}, -- order change to 1
+        {"T3 Bot2", 1, 'UAL0303', 'XSL0303'}, 
 
         {"T3 Bot3", 4, 'XRL0305', 'XEL0305'},
-        {"T3 Bot3", 1, 'XRL0305', 'XEL0305'}, -- order change to 1
+        {"T3 Bot3", 1, 'XRL0305', 'XEL0305'}, 
 
         {"T3 Sniper", 2, 'XAL0305', 'XSL0305'},
 
         {"T3 MML", 2, 'XEL0306'},
 
-        {"Monkeylord", 1, 'URL0402'}, -- order change to 1
+        {"Monkeylord", 1, 'URL0402'}, 
         {"Monkeylord", 2, 'URL0402'},
         {"GC", 2, "UAL0401"},
 
@@ -529,13 +529,13 @@ local tables = {
         {"T3 Shield", 3, 'XSL0307'},
 
         {"T3 Bot1", 4, 'URL0303', 'UEL0303'},
-        {"T3 Bot1", 1, 'URL0303', 'UEL0303'}, -- order change to 1
+        {"T3 Bot1", 1, 'URL0303', 'UEL0303'}, 
 
         {"T3 Bot2", 4, 'UAL0303', 'XSL0303'},
-        {"T3 Bot2", 1, 'UAL0303', 'XSL0303'}, -- order change to 1
+        {"T3 Bot2", 1, 'UAL0303', 'XSL0303'}, 
 
         {"T3 Bot3", 4, 'XRL0305', 'XEL0305'},
-        {"T3 Bot3", 1, 'XRL0305', 'XEL0305'}, -- order change to 1
+        {"T3 Bot3", 1, 'XRL0305', 'XEL0305'}, 
 
         {"T3 Sniper", 2, 'XAL0305', 'XSL0305'},
 
@@ -547,13 +547,13 @@ local tables = {
         {"T3 Shield", 3, 'XSL0307'},
 
         {"T3 Bot1", 4, 'URL0303', 'UEL0303'},
-        {"T3 Bot1", 1, 'URL0303', 'UEL0303'}, -- order change to 1
+        {"T3 Bot1", 1, 'URL0303', 'UEL0303'}, 
 
         {"T3 Bot2", 4, 'UAL0303', 'XSL0303'},
-        {"T3 Bot2", 1, 'UAL0303', 'XSL0303'}, -- order change to 1
+        {"T3 Bot2", 1, 'UAL0303', 'XSL0303'}, 
 
         {"T3 Bot3", 4, 'XRL0305', 'XEL0305'},
-        {"T3 Bot3", 1, 'XRL0305', 'XEL0305'}, -- order change to 1
+        {"T3 Bot3", 1, 'XRL0305', 'XEL0305'}, 
 
         {"T3 Sniper", 2, 'XAL0305', 'XSL0305'},
 
@@ -565,13 +565,13 @@ local tables = {
         {"T3 Shield", 3, 'XSL0307'},
 
         {"T3 Bot1", 4, 'URL0303', 'UEL0303'},
-        {"T3 Bot1", 1, 'URL0303', 'UEL0303'}, -- order change to 1
+        {"T3 Bot1", 1, 'URL0303', 'UEL0303'}, 
 
         {"T3 Bot2", 4, 'UAL0303', 'XSL0303'},
-        {"T3 Bot2", 1, 'UAL0303', 'XSL0303'}, -- order change to 1
+        {"T3 Bot2", 1, 'UAL0303', 'XSL0303'}, 
 
         {"T3 Bot3", 4, 'XRL0305', 'XEL0305'},
-        {"T3 Bot3", 1, 'XRL0305', 'XEL0305'}, -- order change to 1
+        {"T3 Bot3", 1, 'XRL0305', 'XEL0305'}, 
 
         {"T3 Sniper", 2, 'XAL0305', 'XSL0305'},
 
@@ -596,7 +596,7 @@ local tables = {
         {"T2 Shield", 3, 'UAL0307', 'UEL0307'},
         {"T3 Shield", 3, 'XSL0307'},
 
-        {"Monkeylord", 1, 'URL0402'}, -- order change to 1
+        {"Monkeylord", 1, 'URL0402'}, 
         {"Monkeylord", 2, 'URL0402'},
         {"GC", 2, "UAL0401"},
 
