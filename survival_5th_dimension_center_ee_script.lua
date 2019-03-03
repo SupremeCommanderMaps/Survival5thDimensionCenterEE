@@ -582,6 +582,59 @@ Survival_SpawnWave = function()
 end
 
 
+local function Survival_PlatoonOrder(UnitList, OrderID)
+	if (UnitList == nil) then
+		return
+	end
+
+	local aiBrain = GetArmyBrain("ARMY_SURVIVAL_ENEMY")
+	local aiPlatoon = aiBrain:MakePlatoon('','');
+	aiBrain:AssignUnitsToPlatoon(aiPlatoon, UnitList, 'Attack', 'None'); -- platoon, unit list, "mission" and formation
+
+	-- 1 center / 2 waypoint / 3 spawn
+
+	if (OrderID == 4) then -- attack move / move
+
+		-- attack move to random path
+		POS = Survival_GetPOS(2, 25);
+		aiPlatoon:AggressiveMoveToLocation(POS);
+
+		-- move to random center
+		POS = Survival_GetPOS(1, 25);
+		aiPlatoon:MoveToLocation(POS, false);
+
+	elseif (OrderID == 3) then -- patrol paths
+
+		-- move to random path
+		POS = Survival_GetPOS(2, 25);
+		aiPlatoon:MoveToLocation(POS, false);
+
+		-- patrol to random path
+		POS = Survival_GetPOS(2, 25);
+		aiPlatoon:Patrol(POS);
+
+	elseif (OrderID == 2) then -- attack move
+
+		-- attack move to random path
+		POS = Survival_GetPOS(2, 25);
+		aiPlatoon:AggressiveMoveToLocation(POS);
+
+		-- attack move to random center
+		POS = Survival_GetPOS(1, 25);
+		aiPlatoon:AggressiveMoveToLocation(POS);
+
+	else -- default/order 1 is move
+
+		-- move to random path
+		POS = Survival_GetPOS(2, 25);
+		aiPlatoon:MoveToLocation(POS, false);
+
+		-- move to random center
+		POS = Survival_GetPOS(1, 25);
+		aiPlatoon:MoveToLocation(POS, false);
+	end
+
+end
 
 -- spawns a specified unit
 --------------------------------------------------------------------------
@@ -646,66 +699,6 @@ Survival_GetPOS = function(MarkerType, Randomization)
 	return POS;
 
 end
-
-
-
--- test platoon order function
---------------------------------------------------------------------------
-Survival_PlatoonOrder = function(UnitList, OrderID)
-
-	if (UnitList == nil) then
-		return;
-	end
-
-	local aiBrain = GetArmyBrain("ARMY_SURVIVAL_ENEMY")
-	local aiPlatoon = aiBrain:MakePlatoon('','');
-	aiBrain:AssignUnitsToPlatoon(aiPlatoon, UnitList, 'Attack', 'None'); -- platoon, unit list, "mission" and formation
-
- 	-- 1 center / 2 waypoint / 3 spawn
- 
- 	if (OrderID == 4) then -- attack move / move
-
-		-- attack move to random path
-		POS = Survival_GetPOS(2, 25);
-		aiPlatoon:AggressiveMoveToLocation(POS);
-
-		-- move to random center
-		POS = Survival_GetPOS(1, 25);
-		aiPlatoon:MoveToLocation(POS, false);
-
- 	elseif (OrderID == 3) then -- patrol paths
-
-		-- move to random path
-		POS = Survival_GetPOS(2, 25);
-		aiPlatoon:MoveToLocation(POS, false);
-
-		-- patrol to random path
-		POS = Survival_GetPOS(2, 25);
-		aiPlatoon:Patrol(POS);
-
-	elseif (OrderID == 2) then -- attack move
-
-		-- attack move to random path
-		POS = Survival_GetPOS(2, 25);
-		aiPlatoon:AggressiveMoveToLocation(POS);
-
-		-- attack move to random center
-		POS = Survival_GetPOS(1, 25);
-		aiPlatoon:AggressiveMoveToLocation(POS);
-
-	else -- default/order 1 is move
-
-		-- move to random path
-		POS = Survival_GetPOS(2, 25);
-		aiPlatoon:MoveToLocation(POS, false);
-
-		-- move to random center
-		POS = Survival_GetPOS(1, 25);
-		aiPlatoon:MoveToLocation(POS, false);
-	end
-
-end
-
 
 
 -- calculates how many units to spawn per wave
