@@ -23,12 +23,6 @@ local Survival_UnitCountPerWave = 0; -- how many units to spawn with each wave (
 
 local Survival_MinWarnTime = 0;
 
-local Survival_HealthBuffLand = 1.00;
-local Survival_HealthBuffAir = 1.00;
-local Survival_HealthBuffSea = 1.00;
-local Survival_HealthBuffGate = 1.00;
-local Survival_HealthBuffDefObject = 1.00;
-
 local Survival_DefUnit = nil;
 local Survival_DefCheckHP = 0.0;
 local Survival_DefLastHP = 0;
