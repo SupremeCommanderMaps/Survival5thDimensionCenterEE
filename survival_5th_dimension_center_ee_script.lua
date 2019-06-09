@@ -183,6 +183,10 @@ local function createSurvivalUnit(blueprint, x, z, y)
     return unit
 end
 
+BroadcastMSG = function(MSG, Fade, TextColor)
+	PrintText(MSG, 20, TextColor, Fade, 'center')
+end
+
 -- econ adjust based on who is playing
 -- taken from original survival/Jotto
 --------------------------------------------------------------------------
@@ -314,10 +318,10 @@ Survival_InitGame = function()
 
 end
 
+function GetMarker(MarkerName)
+	return Scenario.MasterChain._MASTERCHAIN_.Markers[MarkerName]
+end
 
-
--- spawns a specified unit
---------------------------------------------------------------------------
 Survival_InitMarkers = function()
 	LOG("----- Survival MOD: Initializing marker lists...");
 
@@ -651,55 +655,16 @@ local function Survival_PlatoonOrder(UnitList, OrderID)
 
 end
 
-
-
-
--- returns a random unit from within a specified unit table
---------------------------------------------------------------------------
 Survival_GetUnitFromTable = function(UnitTable)
-
-	local RandID = math.random(3, table.getn(UnitTable));
-	local UnitID = UnitTable[RandID];
-
-	return UnitID;
-
+	return UnitTable[math.random(3, table.getn(UnitTable))]
 end
 
 
 -- calculates how many units to spawn per wave
---------------------------------------------------------------------------
 function Survival_CalcWaveCounts()
-
 	local WaveMultiplier = ScenarioInfo.Options.opt_Survival_WaveFrequency / 60;
 	Survival_UnitCountPerMinute = ScenarioInfo.Options.opt_Survival_EnemiesPerMinute * Survival_PlayerCount;
 	Survival_UnitCountPerWave = Survival_UnitCountPerMinute * WaveMultiplier;
-	LOG("----- Survival MOD: CalcWaveCounts = ((" .. ScenarioInfo.Options.opt_Survival_EnemiesPerMinute .. " EPM * " .. Survival_PlayerCount .. " Players = " .. Survival_UnitCountPerMinute .. ")) * ((" .. ScenarioInfo.Options.opt_Survival_WaveFrequency .. " Second Waves / 60 = " .. WaveMultiplier .. ")) = " .. Survival_UnitCountPerWave .. " Units Per Wave     (( with Waves Per Minute of " .. (60 / ScenarioInfo.Options.opt_Survival_WaveFrequency) .. " = " .. (Survival_UnitCountPerWave * (60 / ScenarioInfo.Options.opt_Survival_WaveFrequency)) .. " of " .. Survival_UnitCountPerMinute .. " Units Per Minute.");
-
-end
-
-
--- broadcast a text message to players
--- modified version of original survival script function
-BroadcastMSG = function(MSG, Fade, TextColor)
-	PrintText(MSG, 20, TextColor, Fade, 'center') ;	
-end
-
--- gets map marker reference by name
--- taken from forum post by Saya
-function GetMarker(MarkerName)
-	return Scenario.MasterChain._MASTERCHAIN_.Markers[MarkerName]
-end
-
--- returns a random spawn position
-Survival_RandomizePOS = function(POS, x)
-
-	local NewPOS = {0, 0, 0};
-
-	NewPOS[1] = POS[1] + ((math.random() * (x * 2)) - x);
-	NewPOS[3] = POS[3] + ((math.random() * (x * 2)) - x);
-
-	return NewPOS;
-
 end
 
 function OnShiftF3()
