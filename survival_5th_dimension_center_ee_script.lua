@@ -564,43 +564,6 @@ local function Survival_GetPOS(MarkerType)
 	return POS
 end
 
-
-
-
-local function Survival_SpawnUnit(UnitID, OrderID)
-	local POS = Survival_GetPOS(3)
-
-	local PlatoonList = {};
-
-	local NewUnit = createSurvivalUnit(UnitID, POS[1], POS[2], POS[3])
-
-	NewUnit:SetProductionPerSecondEnergy(325)
-
-	table.insert(PlatoonList, NewUnit); -- add unit to a platoon
-	Survival_PlatoonOrder(PlatoonList, OrderID); -- give the unit orders
-end
-
-local function spawnWaveTable(waveTable)
-	-- pick a random unit table from within this wave set
-	local UnitTable = waveTable[math.random(2, table.getn(waveTable))]; -- reference that unit table
-
-	Survival_SpawnUnit(
-		Survival_GetUnitFromTable(UnitTable), -- pick a random unit id from this table
-		UnitTable[2] -- get the order id from this unit table (always 2nd entry)
-	);
-end
-
-Survival_SpawnWave = function()
-	-- for the amount of units we spawn in per wave
-	if (table.getn(waveTables[waveTables[1]]) > 1) then -- only do a wave spawn if there is a wave table available
-		-- for the amount of units we spawn in per wave
-		for z = 1,Survival_UnitCountPerWave do
-			spawnWaveTable(waveTables[waveTables[1]])
-		end
-	end
-end
-
-
 local function Survival_PlatoonOrder(UnitList, OrderID)
 	if (UnitList == nil) then
 		return
@@ -654,6 +617,41 @@ local function Survival_PlatoonOrder(UnitList, OrderID)
 	end
 
 end
+
+local function Survival_SpawnUnit(UnitID, OrderID)
+	local POS = Survival_GetPOS(3)
+
+	local PlatoonList = {};
+
+	local NewUnit = createSurvivalUnit(UnitID, POS[1], POS[2], POS[3])
+
+	NewUnit:SetProductionPerSecondEnergy(325)
+
+	table.insert(PlatoonList, NewUnit); -- add unit to a platoon
+	Survival_PlatoonOrder(PlatoonList, OrderID); -- give the unit orders
+end
+
+local function spawnWaveTable(waveTable)
+	-- pick a random unit table from within this wave set
+	local UnitTable = waveTable[math.random(2, table.getn(waveTable))]; -- reference that unit table
+
+	Survival_SpawnUnit(
+		Survival_GetUnitFromTable(UnitTable), -- pick a random unit id from this table
+		UnitTable[2] -- get the order id from this unit table (always 2nd entry)
+	);
+end
+
+Survival_SpawnWave = function()
+	-- for the amount of units we spawn in per wave
+	if (table.getn(waveTables[waveTables[1]]) > 1) then -- only do a wave spawn if there is a wave table available
+		-- for the amount of units we spawn in per wave
+		for z = 1,Survival_UnitCountPerWave do
+			spawnWaveTable(waveTables[waveTables[1]])
+		end
+	end
+end
+
+
 
 Survival_GetUnitFromTable = function(UnitTable)
 	return UnitTable[math.random(3, table.getn(UnitTable))]
