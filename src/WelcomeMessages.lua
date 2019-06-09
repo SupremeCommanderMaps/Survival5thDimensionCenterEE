@@ -1,5 +1,5 @@
 newInstance = function(textPrinter, options, mapVersion)
-    local WELCOME_MESSAGE_DURATION = 16
+    local WELCOME_MESSAGE_DURATION = 30
 
     local function displayWeclome()
         local headerOptions = { color = "ff5599ff", duration = WELCOME_MESSAGE_DURATION, location = "leftcenter" }
@@ -12,8 +12,9 @@ newInstance = function(textPrinter, options, mapVersion)
         textPrinter.printBlankLine(textOptions)
         textPrinter.printBlankLine(textOptions)
         textPrinter.print(string.rep(" ", 20) .. "Enemies spawn in " .. options.opt_Survival_BuildTime .. " seconds", textOptions)
-        textPrinter.print(string.rep(" ", 20) .. "Enemies spawn every " .. options.opt_Survival_WaveFrequency .. " seconds", textOptions)
-        textPrinter.print(string.rep(" ", 20) .. "Difficulty " .. options.opt_Survival_EnemiesPerMinute, textOptions)
+
+        textPrinter.print(string.rep(" ", 20) .. "Survival nukes: off", textOptions)
+        textPrinter.print(string.rep(" ", 20) .. "Survival air: off", textOptions)
 
         textPrinter.print(
             string.rep(" ", 20) .. "Auto reclaim: " ..
@@ -25,7 +26,8 @@ newInstance = function(textPrinter, options, mapVersion)
             textOptions
         )
 
-        textPrinter.print(string.rep(" ", 20) .. "Survival nukes: off", textOptions)
+        textPrinter.print(string.rep(" ", 20) .. "Enemies spawn every " .. options.opt_Survival_WaveFrequency .. " seconds", textOptions)
+        textPrinter.print(string.rep(" ", 20) .. "Difficulty " .. options.opt_Survival_EnemiesPerMinute, textOptions)
     end
 
     return {
