@@ -5,7 +5,6 @@
 
 local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua');
 local ScenarioFramework = import('/lua/ScenarioFramework.lua');
-local Utilities = import('/lua/utilities.lua');
 
 local Survival_TickInterval = 0.50; -- how much delay between each script iteration
 
