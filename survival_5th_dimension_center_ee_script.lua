@@ -16,6 +16,7 @@ local Survival_PlayerCount = 0; -- how many edge players there are
 local Survival_PlayerCount_Total = 0; -- how many total players there are
 
 local Survival_MarkerRefs = {{}, {}, {}, {}, {}}; -- 1 center / 2 waypoint / 3 spawn / 4 arty / 5 nuke
+local spawnPositionsPerArmyName = {}
 
 local Survival_UnitCountPerMinute = 0; -- how many units to spawn per minute (taking into consideration player count)
 local Survival_UnitCountPerWave = 0; -- how many units to spawn with each wave (taking into consideration player count)
@@ -144,9 +145,30 @@ function OnPopulate()
     setupAllFactions()
 	vanguardify()
 
+	for _, armyName in ListArmies() do
+		spawnPositionsPerArmyName[armyName] = {}
+	end
+
 	Survival_InitGame()
 
 	showWelcomeMessages()
+end
+
+local function randomValueFromList(list)
+	if table.getn(list) == 0 then
+		return nil
+	end
+	return list[math.random(1, table.getn(list))]
+end
+
+local function getSpawnPositionForEachArmy()
+	local positions = {}
+
+	for _, armyName in ListArmies() do
+		table.insert(positions, randomValueFromList(spawnPositionsPerArmyName[armyName]))
+	end
+
+	return positions
 end
 
 local function createSurvivalUnit(blueprint, x, z, y)
@@ -298,7 +320,6 @@ end
 -- spawns a specified unit
 --------------------------------------------------------------------------
 Survival_InitMarkers = function()
-
 	LOG("----- Survival MOD: Initializing marker lists...");
 
 	local MarkerRef
@@ -333,9 +354,10 @@ Survival_InitMarkers = function()
 		MarkerRef = GetMarker("SURVIVAL_SPAWN_" .. i)
 
 		if (MarkerRef ~= nil) then
-			for x, army in ListArmies() do -- loop through army list
-				if (MarkerRef.SpawnWithArmy == army) then -- if this army is present
+			for _, armyName in ListArmies() do -- loop through army list
+				if (MarkerRef.SpawnWithArmy == armyName) then -- if this army is present
 					table.insert(Survival_MarkerRefs[3], MarkerRef)
+					table.insert(spawnPositionsPerArmyName[armyName], MarkerRef.position)
 					break;
 				end
 			end
@@ -723,8 +745,8 @@ function OnShiftF3()
 	ForkThread(function()
 		local boatSpawner = localImport('RangeBoat.lua').newInstance(unitCreator)
 
-		for _, spawnMarker in Survival_MarkerRefs[3] do
-			local units = boatSpawner.spawnFlyingBoat(spawnMarker.position)
+		for _, spawnPosition in getSpawnPositionForEachArmy() do
+			local units = boatSpawner.spawnFlyingBoat(spawnPosition)
 			IssueAggressiveMove(units, mapPositions.getMapCenter())
 		end
 	end)
