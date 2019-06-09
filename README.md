@@ -7,10 +7,11 @@ You can find the latest version of the code on GitHub at https://github.com/Jero
 
 ### Entropy Edition 5
 
-2019-06-
+2019-06-09
 
 * Added extra values to the Difficulty lobby option
 * Decreased difficulty of final stage
+* Added surprise unit to final stage
 
 ### Entropy Edition 4
 

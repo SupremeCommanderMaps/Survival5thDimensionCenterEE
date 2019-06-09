@@ -621,14 +621,14 @@ end
 local function Survival_SpawnUnit(UnitID, OrderID)
 	local POS = Survival_GetPOS(3)
 
-	local PlatoonList = {};
+	local PlatoonList = {}
 
 	local NewUnit = createSurvivalUnit(UnitID, POS[1], POS[2], POS[3])
 
 	NewUnit:SetProductionPerSecondEnergy(325)
 
-	table.insert(PlatoonList, NewUnit); -- add unit to a platoon
-	Survival_PlatoonOrder(PlatoonList, OrderID); -- give the unit orders
+	table.insert(PlatoonList, NewUnit)
+	Survival_PlatoonOrder(PlatoonList, OrderID)
 end
 
 local function spawnRangeBoats()
