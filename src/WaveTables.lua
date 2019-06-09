@@ -22,10 +22,9 @@ local tables = {
     { -- Wave Set 1
 
         0.0; -- spawn time
-
         {"T1 Scout", 3, 'UAL0101', 'URL0101', 'UEL0101', 'XSL0101'},
         {"T1 Bot", 1, 'UAL0106', 'URL0106', 'UEL0106'},
---        {"Rangeboooooots!", 4, 'DEL0204'},
+
     },
     { -- Wave Set 2
 
@@ -453,7 +452,7 @@ local tables = {
 
         {"T3 MML", 2, 'XEL0306'},
 
-        {"GC", 2, "UAL0401"},
+        {"Monkeylord", 2, 'URL0402'},
 
         {"Ythotha", 1, "XSL0401"},
     },
@@ -587,24 +586,25 @@ local tables = {
 
         35.0; -- spawn time
 
-        {"T2 Shield", 3, 'UAL0307', 'UEL0307'},
+        {"T3 Shield", 3, 'XSL0307'},
+        {"T3 Shield", 3, 'XSL0307'},
         {"T3 Shield", 3, 'XSL0307'},
 
-        {"T2 Shield", 3, 'UAL0307', 'UEL0307'},
-        {"T3 Shield", 3, 'XSL0307'},
-
-        {"T2 Shield", 3, 'UAL0307', 'UEL0307'},
-        {"T3 Shield", 3, 'XSL0307'},
-
-        {"Monkeylord", 1, 'URL0402'}, 
+        {"Monkeylord", 1, 'URL0402'},
         {"Monkeylord", 2, 'URL0402'},
         {"GC", 2, "UAL0401"},
 
         {"Ythotha", 1, "XSL0401"},
-
         {"Megalith", 2, "XRL0403"},
-
         {"Fatboy", 3, "UEL0401"},
+
+        {"", 404, ""},
+        {"", 404, ""},
+        {"", 404, ""},
+
+        {"", 404, ""},
+        {"", 404, ""},
+        {"", 404, ""},
     },
 }
 

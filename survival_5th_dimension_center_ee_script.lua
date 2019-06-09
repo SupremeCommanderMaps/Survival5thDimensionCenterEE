@@ -634,11 +634,14 @@ end
 local function spawnWaveTable(waveTable)
 	-- pick a random unit table from within this wave set
 	local UnitTable = waveTable[math.random(2, table.getn(waveTable))]; -- reference that unit table
+	local orderId = UnitTable[2]
 
-	Survival_SpawnUnit(
-		Survival_GetUnitFromTable(UnitTable), -- pick a random unit id from this table
-		UnitTable[2] -- get the order id from this unit table (always 2nd entry)
-	);
+	if orderId ~= 404 then
+		Survival_SpawnUnit(
+			Survival_GetUnitFromTable(UnitTable),
+			orderId
+		);
+	end
 end
 
 Survival_SpawnWave = function()
