@@ -309,7 +309,6 @@ Survival_InitGame = function()
 
 	Survival_InitMarkers(); -- find and reference all the map markers related to survival
 	Survival_SpawnDef();
-	Survival_SpawnPrebuild();
 
 	Survival_CalcWaveCounts(); -- calculate how many units per wave
 
@@ -429,44 +428,6 @@ Survival_SpawnDef = function()
 
 	Survival_DefLastHP = Survival_DefUnit:GetHealth();
 
-end
-
-
-
--- spawns a specified unit
---------------------------------------------------------------------------
-Survival_SpawnPrebuild = function()
-
-	LOG("----- Survival MOD: Initializing pre-build objects...");
-
-	local FactionID = nil;
-
-	local MarkerRef = nil;
-	local POS = nil;
-	local FactoryRef = nil;
-
-	for i, Army in ListArmies() do
-		if (Army == "ARMY_1" or Army == "ARMY_2" or Army == "ARMY_3" or Army == "ARMY_4" or Army == "ARMY_5" or Army == "ARMY_6" or Army == "ARMY_7" or Army == "ARMY_8") then 
-
-			FactionID = GetArmyBrain(Army):GetFactionIndex();
-
-			MarkerRef = GetMarker("SURVIVAL_FACTORY_" .. Army);
-
-			if (MarkerRef ~= nil) then
-				POS = MarkerRef.position;
-
-				if (FactionID == 1) then -- uef
-					FactoryRef = CreateUnitHPR('UEB0101', Army, POS[1], POS[2], POS[3], 0,0,0);
-				elseif (FactionID == 2) then -- aeon
-					FactoryRef = CreateUnitHPR('UAB0101', Army, POS[1], POS[2], POS[3], 0,0,0);
-				elseif (FactionID == 3) then -- cybran
-					FactoryRef = CreateUnitHPR('URB0101', Army, POS[1], POS[2], POS[3], 0,0,0);
-				elseif (FactionID == 4) then -- seraphim
-					FactoryRef = CreateUnitHPR('XSB0101', Army, POS[1], POS[2], POS[3], 0,0,0);
-				end
-			end
-		end
-	end
 end
 
 
