@@ -1,17 +1,15 @@
-newInstance = function(unitCreator, mapPositions, Survival_GetPOS)
-    local function spawnTransport()
+newInstance = function(unitCreator)
+    local function spawnTransport(spawnPosition)
         local bp = GetUnitBlueprintByName("uaa0107")
         bp.Physics.Elevation = 1
         bp.StrategicIconName = ''
 
-        local POS = Survival_GetPOS(3, 5)
-
         local transport = unitCreator.create({
             armyName = "ARMY_SURVIVAL_ENEMY",
             blueprintName = "uaa0107",
-            x = POS[1],
-            y = POS[3],
-            z = POS[2],
+            x = spawnPosition[1],
+            y = spawnPosition[3],
+            z = spawnPosition[2],
             isTransport = true
         })
 
@@ -56,22 +54,20 @@ newInstance = function(unitCreator, mapPositions, Survival_GetPOS)
         return boat
     end
 
-    local function spawnFlyingBoat()
-        local transports = {spawnTransport()}
-        local boat = spawnBoat()
-
-        import('/lua/ScenarioFramework.lua').AttachUnitsToTransports(
-            {boat},
-            transports
-        )
-
-        boat:OnStorageChange(false)
-        boat:SetUnSelectable(false)
-
-        IssueAggressiveMove(transports, mapPositions.getMapCenter())
-    end
-
     return {
-        spawnFlyingBoat = spawnFlyingBoat
+        spawnFlyingBoat = function(spawnPosition)
+            local transports = {spawnTransport(spawnPosition)}
+            local boat = spawnBoat()
+
+            import('/lua/ScenarioFramework.lua').AttachUnitsToTransports(
+                {boat},
+                transports
+            )
+
+            boat:OnStorageChange(false)
+            boat:SetUnSelectable(false)
+
+            return transports
+        end
     }
 end

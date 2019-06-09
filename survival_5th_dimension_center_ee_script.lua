@@ -302,16 +302,16 @@ Survival_InitMarkers = function()
 
 	LOG("----- Survival MOD: Initializing marker lists...");
 
-	local MarkerRef = nil;
-	local Break = 0;
-	local i = 1;
+	local MarkerRef
+	local Break = 0
+	local i = 1
 
 	while (Break < 3) do
 
 		Break = 0; -- reset break counter
 
 		-- center
-		MarkerRef = GetMarker("SURVIVAL_CENTER_" .. i);
+		MarkerRef = GetMarker("SURVIVAL_CENTER_" .. i)
 
 		if (MarkerRef ~= nil) then
 			table.insert(Survival_MarkerRefs[1], MarkerRef);
@@ -321,7 +321,7 @@ Survival_InitMarkers = function()
 		end
 
 		-- path
-		MarkerRef = GetMarker("SURVIVAL_PATH_" .. i);
+		MarkerRef = GetMarker("SURVIVAL_PATH_" .. i)
 
 		if (MarkerRef ~= nil) then
 			table.insert(Survival_MarkerRefs[2], MarkerRef);
@@ -331,22 +331,22 @@ Survival_InitMarkers = function()
 		end
 
 		-- spawn
-		MarkerRef = GetMarker("SURVIVAL_SPAWN_" .. i);
+		MarkerRef = GetMarker("SURVIVAL_SPAWN_" .. i)
 
 		if (MarkerRef ~= nil) then
 			for x, army in ListArmies() do -- loop through army list
 				if (MarkerRef.SpawnWithArmy == army) then -- if this army is present
-					table.insert(Survival_MarkerRefs[3], MarkerRef);
+					table.insert(Survival_MarkerRefs[3], MarkerRef)
 					break;
 				end
 			end
 			
 --			Survival_MarkerCounts[3] = Survival_MarkerCounts[3] + 1;
 		else
-			Break = Break + 1;
+			Break = Break + 1
 		end
 
-		i = i + 1; -- increment counter
+		i = i + 1 -- increment counter
 
 	end
 
@@ -558,7 +558,7 @@ Survival_UpdateWaves = function(GameTime)
 	end
 end
 
-local function Survival_GetPOS(MarkerType, Randomization)
+local function Survival_GetPOS(MarkerType)
 	local RandID = 1
 
 	RandID = math.random(1, table.getn(Survival_MarkerRefs[MarkerType]));  -- get a random value from the selected marker count
@@ -582,7 +582,7 @@ end
 
 
 local function Survival_SpawnUnit(UnitID, OrderID)
-	local POS = Survival_GetPOS(3, 25)
+	local POS = Survival_GetPOS(3)
 
 	local PlatoonList = {};
 
@@ -629,42 +629,42 @@ local function Survival_PlatoonOrder(UnitList, OrderID)
 	if (OrderID == 4) then -- attack move / move
 
 		-- attack move to random path
-		POS = Survival_GetPOS(2, 25);
-		aiPlatoon:AggressiveMoveToLocation(POS);
+		POS = Survival_GetPOS(2)
+		aiPlatoon:AggressiveMoveToLocation(POS)
 
 		-- move to random center
-		POS = Survival_GetPOS(1, 25);
-		aiPlatoon:MoveToLocation(POS, false);
+		POS = Survival_GetPOS(1)
+		aiPlatoon:MoveToLocation(POS, false)
 
 	elseif (OrderID == 3) then -- patrol paths
 
 		-- move to random path
-		POS = Survival_GetPOS(2, 25);
-		aiPlatoon:MoveToLocation(POS, false);
+		POS = Survival_GetPOS(2)
+		aiPlatoon:MoveToLocation(POS, false)
 
 		-- patrol to random path
-		POS = Survival_GetPOS(2, 25);
+		POS = Survival_GetPOS(2)
 		aiPlatoon:Patrol(POS);
 
 	elseif (OrderID == 2) then -- attack move
 
 		-- attack move to random path
-		POS = Survival_GetPOS(2, 25);
-		aiPlatoon:AggressiveMoveToLocation(POS);
+		POS = Survival_GetPOS(2)
+		aiPlatoon:AggressiveMoveToLocation(POS)
 
 		-- attack move to random center
-		POS = Survival_GetPOS(1, 25);
-		aiPlatoon:AggressiveMoveToLocation(POS);
+		POS = Survival_GetPOS(1)
+		aiPlatoon:AggressiveMoveToLocation(POS)
 
 	else -- default/order 1 is move
 
 		-- move to random path
-		POS = Survival_GetPOS(2, 25);
-		aiPlatoon:MoveToLocation(POS, false);
+		POS = Survival_GetPOS(2)
+		aiPlatoon:MoveToLocation(POS, false)
 
 		-- move to random center
-		POS = Survival_GetPOS(1, 25);
-		aiPlatoon:MoveToLocation(POS, false);
+		POS = Survival_GetPOS(1)
+		aiPlatoon:MoveToLocation(POS, false)
 	end
 
 end
@@ -722,6 +722,11 @@ end
 
 function OnShiftF3()
 	ForkThread(function()
-		localImport('RangeBoat.lua').newInstance(unitCreator, mapPositions, Survival_GetPOS).spawnFlyingBoat()
+		local boatSpawner = localImport('RangeBoat.lua').newInstance(unitCreator)
+
+		for _, spawnMarker in Survival_MarkerRefs[3] do
+			local units = boatSpawner.spawnFlyingBoat(spawnMarker.position)
+			IssueAggressiveMove(units, mapPositions.getMapCenter())
+		end
 	end)
 end
