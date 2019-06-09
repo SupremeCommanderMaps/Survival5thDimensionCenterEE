@@ -7,9 +7,9 @@ You can find the latest version of the code on GitHub at https://github.com/Jero
 
 ### Entropy Edition 5
 
-2019-03-
+2019-06-
 
-*
+* Added extra values to the Difficulty lobby option
 
 ### Entropy Edition 4
 
