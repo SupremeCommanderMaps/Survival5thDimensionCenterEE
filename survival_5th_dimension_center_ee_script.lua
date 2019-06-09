@@ -183,10 +183,6 @@ local function createSurvivalUnit(blueprint, x, z, y)
     return unit
 end
 
-BroadcastMSG = function(MSG, Fade, TextColor)
-	PrintText(MSG, 20, TextColor, Fade, 'center')
-end
-
 -- econ adjust based on who is playing
 -- taken from original survival/Jotto
 --------------------------------------------------------------------------
@@ -333,7 +329,6 @@ Survival_InitMarkers = function()
 
 		Break = 0; -- reset break counter
 
-		-- center
 		MarkerRef = GetMarker("SURVIVAL_CENTER_" .. i)
 
 		if (MarkerRef ~= nil) then
@@ -343,7 +338,6 @@ Survival_InitMarkers = function()
 			Break = Break + 1;
 		end
 
-		-- path
 		MarkerRef = GetMarker("SURVIVAL_PATH_" .. i)
 
 		if (MarkerRef ~= nil) then
@@ -353,7 +347,6 @@ Survival_InitMarkers = function()
 			Break = Break + 1;
 		end
 
-		-- spawn
 		MarkerRef = GetMarker("SURVIVAL_SPAWN_" .. i)
 
 		if (MarkerRef ~= nil) then
@@ -373,15 +366,14 @@ Survival_InitMarkers = function()
 		i = i + 1 -- increment counter
 
 	end
+end
 
-	LOG("----- Survival MOD: Marker counts:     CENTER(" .. table.getn(Survival_MarkerRefs[1]) .. ")     PATHS(" .. table.getn(Survival_MarkerRefs[2]) .. ")     SPAWN(" .. table.getn(Survival_MarkerRefs[3]) .. ")     ARTY(" .. table.getn(Survival_MarkerRefs[4]) .. ")     NUKE(" .. table.getn(Survival_MarkerRefs[5]) .. ")");
-
+local function printAnnouncement(text, options)
+	options.location = "leftcenter"
+	textPrinter.print(string.rep(" ", 12) .. text, options)
 end
 
 Survival_SpawnDef = function()
-
-	LOG("----- Survival MOD: Initializing defense object...");
-
 	local POS = ScenarioUtils.MarkerToPosition("SURVIVAL_CENTER_1");
 	Survival_DefUnit = CreateUnitHPR('XRB3301', "ARMY_SURVIVAL_ALLY", POS[1], POS[2], POS[3], 0,0,0);
 
@@ -402,21 +394,16 @@ Survival_SpawnDef = function()
 
 	Survival_DefUnit:SetIntelRadius('Vision', 350)
 
-	-- when the def object dies
 	Survival_DefUnit.OldOnKilled = Survival_DefUnit.OnKilled;
 
 	Survival_DefUnit.OnKilled = function(self, instigator, type, overkillRatio)
 		if (Survival_GameState ~= 2) then -- If the timer hasn't expired yet...
-			LOG("----------- SCEE: OnKilled")
 			self.OldOnKilled(self, instigator, type, overkillRatio)
-			LOG("----------- SCEE: OnKilled 2")
 
-			textPrinter.print(
+			printAnnouncement(
 				"The defense object has been destroyed. You have lost!",
-				{ color = "ffff5555", duration = 8 }
+				{ color = "ffff5555", duration = 8, size = 30 }
 			)
-
-			LOG("----------- SCEE: OnKilled 3")
 
 			Survival_GameState = 3;
 
@@ -440,10 +427,7 @@ local function SecondsToTime(Seconds)
 end
 
 
--- loops every TickInterval to progress main game logic
---------------------------------------------------------------------------
 Survival_Tick = function(self)
-
 	while (Survival_GameState < 2) do
 
 		Survival_CurrentTime = GetGameTimeSeconds();
@@ -453,7 +437,10 @@ Survival_Tick = function(self)
 		if (Survival_CurrentTime >= Survival_ObjectiveTime) then
 
 			Survival_GameState = 2;
-			BroadcastMSG("The Defence Object is complete! You have won!", 4);
+			printAnnouncement(
+				"The Defence Object is complete! You have won!",
+				{ color = "ff55ff99", duration = 4, size = 30 }
+			)
 			Survival_DefUnit:SetCustomName("CHUCK NORRIS MODE!"); -- update defense object name
 
 			for i, army in ListArmies() do
@@ -472,7 +459,12 @@ Survival_Tick = function(self)
 					LOG("----- Survival MOD: Build state complete. Proceeding to combat state.");
 					Sync.ObjectiveTimer = 0; -- clear objective timer
 					Survival_GameState = 1; -- update game state to combat mode
-					BroadcastMSG("Space Vikings are attacking!", 4);
+
+					printAnnouncement(
+						"Space Vikings are attacking!",
+						{ color = "ffff5599", duration = 3, size = 30 }
+					)
+
 					Survival_SpawnWave()
 					Survival_NextSpawnTime = Survival_NextSpawnTime + ScenarioInfo.Options.opt_Survival_WaveFrequency; -- update next wave spawn time by wave frequency
 
@@ -483,7 +475,11 @@ Survival_Tick = function(self)
 
 					if ((Survival_MinWarnTime > 0) and (Survival_CurrentTime >= Survival_MinWarnTime)) then -- display 2 minute warning if we're at 2 minutes and it's appropriate to do so
 						LOG("----- Survival MOD: Sending 1 minute warning.");
-						BroadcastMSG("1 minute warning!", 2);
+
+						printAnnouncement(
+							"1 minute warning!",
+							{ color = "ffff5599", duration = 2.5, size = 30 }
+						)
 						Survival_MinWarnTime = 0; -- reset 2 minute warning time so it wont be displayed again
 					end
 
@@ -508,7 +504,15 @@ Survival_Tick = function(self)
 					local health = Survival_DefUnit:GetHealth();
 					local maxHealth = Survival_DefUnit:GetMaxHealth();
 					local defUnitPercent = health / maxHealth;
-					BroadcastMSG("The Defence Object is taking damage! (" .. math.floor(defUnitPercent * 100) .. "%)", 0.5);
+
+					textPrinter.print("", {duration = 0.5, location = "lefttop"})
+					textPrinter.print("", {duration = 0.5, location = "lefttop"})
+					textPrinter.print("", {duration = 0.5, location = "lefttop"})
+					textPrinter.print("", {duration = 0.5, location = "lefttop"})
+					textPrinter.print(
+						string.rep(" ", 100) .. 	"The Defence Object is taking damage! (" .. math.floor(defUnitPercent * 100) .. "%)",
+						{ color = "ffff5599", duration = 0.5, location = "lefttop", size = 20 }
+					)
 
 					Survival_DefCheckHP = 2;
 				end
