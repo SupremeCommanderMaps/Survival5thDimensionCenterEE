@@ -631,12 +631,25 @@ local function Survival_SpawnUnit(UnitID, OrderID)
 	Survival_PlatoonOrder(PlatoonList, OrderID); -- give the unit orders
 end
 
+local function spawnRangeBoats()
+	ForkThread(function()
+		local boatSpawner = localImport('RangeBoat.lua').newInstance(unitCreator)
+
+		for _, spawnPosition in getSpawnPositionForEachArmy() do
+			local units = boatSpawner.spawnFlyingBoat(spawnPosition)
+			IssueAggressiveMove(units, mapPositions.getMapCenter())
+		end
+	end)
+end
+
 local function spawnWaveTable(waveTable)
 	-- pick a random unit table from within this wave set
 	local UnitTable = waveTable[math.random(2, table.getn(waveTable))]; -- reference that unit table
 	local orderId = UnitTable[2]
 
-	if orderId ~= 404 then
+	if orderId == 1337 then
+		spawnRangeBoats()
+	elseif orderId ~= 404 then
 		Survival_SpawnUnit(
 			Survival_GetUnitFromTable(UnitTable),
 			orderId
@@ -669,12 +682,5 @@ function Survival_CalcWaveCounts()
 end
 
 function OnShiftF3()
-	ForkThread(function()
-		local boatSpawner = localImport('RangeBoat.lua').newInstance(unitCreator)
-
-		for _, spawnPosition in getSpawnPositionForEachArmy() do
-			local units = boatSpawner.spawnFlyingBoat(spawnPosition)
-			IssueAggressiveMove(units, mapPositions.getMapCenter())
-		end
-	end)
+	spawnRangeBoats()
 end

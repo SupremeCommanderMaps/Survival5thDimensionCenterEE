@@ -17,7 +17,6 @@ newInstance = function(unitCreator)
         transport:SetHealth(transport, 1337)
 
         transport:SetUnSelectable(true)
-        transport:SetDoNotTarget(true)
         transport:SetCapturable(false)
         transport:SetReclaimable(false)
         transport:SetCustomName("Rangeboat")
