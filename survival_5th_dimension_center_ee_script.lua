@@ -60,6 +60,11 @@ local function defaultOptions()
     end
 end
 
+local function printAnnouncement(text, options)
+	options.location = "leftcenter"
+	textPrinter.print(string.rep(" ", 12) .. text, options)
+end
+
 local function setupAutoReclaim()
 	local percentage = ScenarioInfo.Options.opt_CenterAutoReclaim
 
@@ -103,9 +108,26 @@ local function setBotColor()
 	ForkThread(function()
 		SetArmyColor("ARMY_SURVIVAL_ENEMY", 110, 90, 90)
 
-		WaitSeconds(900 + 10) -- Start just after wave set 16
+		WaitSeconds(900+10) -- Start just after wave set 16
 
-		textPrinter.print("DISCO MODE RANGEBOTS!", {size = 22})
+		local RED = "ffff0000"
+		local GREEN = "ff00ff00"
+		local BLUE = "ff0000ff"
+
+		local SIZE = 22
+		local DURATION = 7.5
+
+		printAnnouncement("DISCO", {size = SIZE, color=RED, duration=DURATION})
+		printAnnouncement("MODE", {size = SIZE, color=GREEN, duration=DURATION})
+		printAnnouncement("RANGEBOTS!", {size = SIZE, color=BLUE, duration=DURATION})
+
+		textPrinter.print("DISCO", {size = SIZE, color=BLUE, location="center", duration=DURATION})
+		textPrinter.print("MODE", {size = SIZE, color=RED, location="center", duration=DURATION})
+		textPrinter.print("RANGEBOTS!", {size = SIZE, color=GREEN, location="center", duration=DURATION})
+
+		textPrinter.print("DISCO", {size = SIZE, color=GREEN, location="rightcenter", duration=DURATION})
+		textPrinter.print("MODE", {size = SIZE, color=BLUE, location="rightcenter", duration=DURATION})
+		textPrinter.print("RANGEBOTS!", {size = SIZE, color=RED, location="rightcenter", duration=DURATION})
 
 		local colorChanger = localImport('lib/ColorChanger.lua').newInstance("ARMY_SURVIVAL_ENEMY")
 		colorChanger.start()
@@ -366,11 +388,6 @@ Survival_InitMarkers = function()
 		i = i + 1 -- increment counter
 
 	end
-end
-
-local function printAnnouncement(text, options)
-	options.location = "leftcenter"
-	textPrinter.print(string.rep(" ", 12) .. text, options)
 end
 
 Survival_SpawnDef = function()
