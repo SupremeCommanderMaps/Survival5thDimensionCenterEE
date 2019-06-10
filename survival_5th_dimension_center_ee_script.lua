@@ -30,7 +30,7 @@ local Survival_DefLastHP = 0;
 local Survival_ObjectiveTime = 2400;
 
 local function localImport(fileName)
-	return import('/maps/survival_5th_dimension_center_ee.v0005/src/' .. fileName)
+	return import('/maps/survival_5th_dimension_center_ee.v0006/src/' .. fileName)
 end
 
 local waveTables = localImport('WaveTables.lua').getWaveTables()
