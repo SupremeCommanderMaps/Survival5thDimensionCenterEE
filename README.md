@@ -9,7 +9,7 @@ You can find the latest version of the code on GitHub at https://github.com/Jero
 
 2019-
 
-* 
+*
 
 ### Entropy Edition 5
 
