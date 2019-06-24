@@ -1,18 +1,7 @@
--- unit tables {'UnitID', OrderType};
---------------------------------------------------------------------------
-
--- order types
-
--- 1 = move
--- 2 = attack move
--- 3 = patrol paths
-
--- wave table entries are in the following format
-
 -- {"Description", OrderType, 'UnitID'},
 
 -- entry 1 is a description text not used by code
--- entry 2 is the order given to this unit
+-- entry 2 is the order given to this unit (1 for move, 2 for attack move, 3 for patrol)
 -- entry 3 is the blueprint id and can be added multiple times as needed
 -- when a unit table is randomly selected for spawn ONE unit from within will be chosen at random
 -- for example if the "T1 Tank" line is selected ONE of the four tanks will be selected for spawning
@@ -607,6 +596,33 @@ local tables = {
 
         {"Ranegboat", 1337},
     },
+    { -- Wave Set 28
+
+        38.0; -- spawn time
+
+        {"", 404},
+        {"", 404},
+        {"", 404},
+
+        {"Monkeylord", 1, 'URL0402'},
+        {"Monkeylord", 2, 'URL0402'},
+        {"GC", 2, "UAL0401"},
+
+        {"Ythotha", 1, "XSL0401"},
+        {"Megalith", 2, "XRL0403"},
+        {"Fatboy", 3, "UEL0401"},
+
+        {"Ythotha", 1, "XSL0401"},
+        {"Megalith", 2, "XRL0403"},
+        {"Monkeylord", 2, 'URL0402'},
+
+        {"Ythotha", 1, "XSL0401"},
+        {"Megalith", 2, "XRL0403"},
+        {"Monkeylord", 2, 'URL0402'},
+
+        {"Ranegboat", 1337},
+    },
+    -- Game ends after 40 min
 }
 
 getWaveTables = function()

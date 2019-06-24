@@ -23,11 +23,15 @@ local Survival_UnitCountPerWave = 0; -- how many units to spawn with each wave (
 
 local Survival_MinWarnTime = 0;
 
-local Survival_DefUnit = nil;
-local Survival_DefCheckHP = 0.0;
-local Survival_DefLastHP = 0;
+local Survival_DefUnit
+local Survival_DefCheckHP = 0.0
+local Survival_DefLastHP = 0
 
-local Survival_ObjectiveTime = 2400;
+local Survival_ObjectiveTime = 2400
+
+local ANNOUNCEMENT_COLOR_GOOD = 'ff55ff99'
+local ANNOUNCEMENT_COLOR_FAIL = 'ffff5555'
+local ANNOUNCEMENT_COLOR_BAD = 'ffff5599'
 
 local function localImport(fileName)
 	return import('/maps/survival_5th_dimension_center_ee.v0006/src/' .. fileName)
@@ -432,7 +436,7 @@ Survival_SpawnDef = function()
 
 			printAnnouncement(
 				"The defense object has been destroyed. You have lost!",
-				{ color = "ffff5555", duration = 8, size = 30 }
+				{ color = ANNOUNCEMENT_COLOR_FAIL, duration = 8, size = 30 }
 			)
 
 			Survival_GameState = 3;
@@ -456,6 +460,26 @@ local function SecondsToTime(Seconds)
 	return string.format("%02d:%02d", math.floor(Seconds / 60), math.mod(Seconds, 60));
 end
 
+--local newGameEvents = function()
+--	local timeHandlers = {}
+--
+--	return {
+--		executeAtTime = function(gameTimeInSeconds, handler)
+--
+--		end,
+--
+--		tick = function(currentTime)
+--
+--		end
+--	}
+--end
+--
+--local gameEvents = newGameEvents()
+
+local function isSecondsTillVictory(seconds)
+	local eventTime = Survival_ObjectiveTime - seconds
+	return Survival_CurrentTime > eventTime and Survival_CurrentTime <= eventTime + 0.5
+end
 
 Survival_Tick = function(self)
 	while (Survival_GameState < 2) do
@@ -469,7 +493,7 @@ Survival_Tick = function(self)
 			Survival_GameState = 2;
 			printAnnouncement(
 				"The Defence Object is complete! You have won!",
-				{ color = "ff55ff99", duration = 4, size = 30 }
+				{ color = ANNOUNCEMENT_COLOR_GOOD, duration = 4, size = 30 }
 			)
 			Survival_DefUnit:SetCustomName("CHUCK NORRIS MODE!"); -- update defense object name
 
@@ -492,7 +516,7 @@ Survival_Tick = function(self)
 
 					printAnnouncement(
 						"Space Vikings are attacking!",
-						{ color = "ffff5599", duration = 3, size = 30 }
+						{ color = ANNOUNCEMENT_COLOR_BAD, duration = 3, size = 30 }
 					)
 
 					Survival_SpawnWave()
@@ -508,7 +532,7 @@ Survival_Tick = function(self)
 
 						printAnnouncement(
 							"1 minute warning!",
-							{ color = "ffff5599", duration = 2.5, size = 30 }
+							{ color = ANNOUNCEMENT_COLOR_BAD, duration = 2.5, size = 30 }
 						)
 						Survival_MinWarnTime = 0; -- reset 2 minute warning time so it wont be displayed again
 					end
@@ -524,7 +548,14 @@ Survival_Tick = function(self)
 					Survival_NextSpawnTime = Survival_NextSpawnTime + ScenarioInfo.Options.opt_Survival_WaveFrequency; -- update next wave spawn time by wave frequency
 				end
 
-				Survival_DefUnit:SetCustomName('Level ' ..  (waveTables[1] - 1) .. "/" .. (table.getn(waveTables) - 1) );
+				Survival_DefUnit:SetCustomName('Level ' ..  (waveTables[1] - 1) .. "/" .. (table.getn(waveTables) - 1) )
+
+				if isSecondsTillVictory(120) then
+					printAnnouncement(
+						"2 minutes left!",
+						{ color = ANNOUNCEMENT_COLOR_GOOD, duration = 2.5, size = 30 }
+					)
+				end
 			end
 
 			Survival_DefCheckHP = Survival_DefCheckHP - Survival_TickInterval;
@@ -541,7 +572,7 @@ Survival_Tick = function(self)
 					textPrinter.print("", {duration = 0.5, location = "lefttop"})
 					textPrinter.print(
 						string.rep(" ", 100) .. 	"The Defence Object is taking damage! (" .. math.floor(defUnitPercent * 100) .. "%)",
-						{ color = "ffff5599", duration = 0.5, location = "lefttop", size = 20 }
+						{ color = ANNOUNCEMENT_COLOR_BAD, duration = 0.5, location = "lefttop", size = 20 }
 					)
 
 					Survival_DefCheckHP = 2;
