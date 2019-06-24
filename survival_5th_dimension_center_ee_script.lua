@@ -33,10 +33,22 @@ local function localImport(fileName)
 	return import('/maps/survival_5th_dimension_center_ee.v0006/src/' .. fileName)
 end
 
+local function vendorImport(fileName)
+	return import('/maps/survival_5th_dimension_center_ee.v0006/vendor/lib/src/' .. fileName)
+end
+
 local waveTables = localImport('WaveTables.lua').getWaveTables()
-local textPrinter = localImport('lib/TextPrinter.lua').newInstance()
-local unitCreator = localImport('lib/UnitCreator.lua').newUnitCreator()
-local mapPositions = localImport('lib/MapPositions.lua').newInstance(ScenarioInfo)
+local textPrinter = vendorImport('TextPrinter.lua').newInstance()
+local unitCreator = vendorImport('UnitCreator.lua').newUnitCreator()
+local mapPositions = vendorImport('MapPositions.lua').newInstance(ScenarioInfo)
+
+unitCreator.onUnitCreated(function(unit, unitInfo)
+	unit:SetVeterancy(5)
+
+	if EntityCategoryContains(categories.AIR - categories.EXPERIMENTAL, unit) then
+		unit:SetFuelUseTime(9999)
+	end
+end)
 
 local function defaultOptions()
 	if (ScenarioInfo.Options.opt_Survival_BuildTime == nil) then
@@ -76,7 +88,7 @@ local function setupAutoReclaim()
 		end)
 
 		ForkThread(
-			localImport('lib/AutoReclaim.lua').AutoResourceThread,
+			vendorImport('AutoReclaim.lua').AutoResourceThread,
 			percentage / 100,
 			percentage / 100
 		)
@@ -90,7 +102,7 @@ end
 
 local function setupAllFactions()
     if ScenarioInfo.Options.opt_CenterAllFactions ~= 0 then
-        local allFactions = localImport('lib/AllFactions.lua')
+        local allFactions = vendorImport('AllFactions.lua')
 
         for armyIndex, armyName in ListArmies() do
             if isPlayerArmy(armyName) then
@@ -129,7 +141,7 @@ local function setBotColor()
 		textPrinter.print("MODE", {size = SIZE, color=BLUE, location="rightcenter", duration=DURATION})
 		textPrinter.print("RANGEBOTS!", {size = SIZE, color=RED, location="rightcenter", duration=DURATION})
 
-		local colorChanger = localImport('lib/ColorChanger.lua').newInstance("ARMY_SURVIVAL_ENEMY")
+		local colorChanger = vendorImport('ColorChanger.lua').newInstance("ARMY_SURVIVAL_ENEMY")
 		colorChanger.start()
 
 		WaitSeconds(60) -- Duration of wave set 16
@@ -194,7 +206,8 @@ local function getSpawnPositionForEachArmy()
 end
 
 local function createSurvivalUnit(blueprint, x, z, y)
-    local unit = unitCreator.spawnSurvivalUnit({
+    local unit = unitCreator.create({
+		isSurvivalSpawned = true,
         blueprintName = blueprint,
         armyName = "ARMY_SURVIVAL_ENEMY",
         x = x,
