@@ -7,7 +7,7 @@ You can find the latest version of the code on GitHub at https://github.com/Jero
 
 ### Entropy Edition 6
 
-2019-07-
+2019-07-19
 
 * Added Energy Bonus lobby option
 * Added Objective Health lobby option
