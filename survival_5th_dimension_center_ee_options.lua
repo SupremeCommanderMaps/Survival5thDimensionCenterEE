@@ -71,8 +71,82 @@ options =
 		},
 	},
 	{
+		default = 6,
+		label = "Survival: Objective Health",
+		help = "Health of the defence objective (the building in the center of the map)",
+		key = 'opt_CenterObjectiveHealth',
+		pref = 'opt_CenterObjectiveHealth',
+		values = {
+			{ text = "Do not sneeze", help = "1 HP", key = 1, },
+			{ text = "Do not sneeze too hard", help = "100 HP", key = 100, },
+			{ text = "1000 HP", help = "Can sneeze once", key = 1000, },
+			{ text = "2000 HP", help = "Can sneeze twice", key = 2000, },
+			{ text = "4000 HP", help = "Can sneeze a bunch of times", key = 4000, },
+			{ text = "5000 HP", help = "Classical HP with 4 players", key = 5000, },
+			{ text = "6000 HP", help = "A little extra", key = 6000, },
+			{ text = "7500 HP", help = "A little more extra", key = 7500, },
+			{ text = "10000 HP", help = "Over 9000", key = 10000, },
+			{ text = "25000 HP", help = "XXXL", key = 25000, },
+			{ text = "100000 HP", help = "Bitcoins 2020 price", key = 100000, },
+			{ text = "1000000 HP", help = "Bitcoins 2021 price", key = 1000000, },
+		}
+	},
+	{
+		default = 7,
+		label = "Survival: Objective Regen",
+		help = "Regeneration rate of the defence objective (the building in the center of the map)",
+		key = 'opt_CenterObjectiveRegen',
+		pref = 'opt_CenterObjectiveRegen',
+		values = {
+			{ text = "None", help = "No regeneration", key = 0, },
+			{ text = "2 hp/s", help = "", key = 2, },
+			{ text = "5 hp/s", help = "", key = 5, },
+			{ text = "10 hp/s", help = "", key = 10, },
+			{ text = "15 hp/s", help = "", key = 15, },
+			{ text = "20 hp/s", help = "", key = 20, },
+			{ text = "25 hp/s", help = "", key = 25, },
+			{ text = "30 hp/s", help = "", key = 30, },
+			{ text = "35 hp/s", help = "", key = 35, },
+			{ text = "50 hp/s", help = "", key = 50, },
+			{ text = "75 hp/s", help = "", key = 75, },
+			{ text = "100 hp/s", help = "", key = 100, },
+			{ text = "150 hp/s", help = "", key = 150, },
+			{ text = "1000 hp/s", help = "", key = 1000, },
+		}
+	},
+	{
+		default = 6,
+		label = "Survival: Objective Vision",
+		help = "How much vision the defence objective should give",
+		key = 'opt_CenterObjectiveVision',
+		pref = 'opt_CenterObjectiveVision',
+		values = {
+			{ text = "Disabled", help = "No extra vision granted", key = 0, },
+			{ text = "100", help = "Allows you to see your own base. Very useful!", key = 100, },
+			{ text = "150", help = "Till the gaps", key = 150, },
+			{ text = "200", help = "A bit in front of the defences", key = 200, },
+			{ text = "250", help = "Only the corners are dark", key = 250, },
+			{ text = "350", help = "The whole map", key = 350, },
+		}
+	},
+	{
+		default = 3,
+		label = "Survival: Energy bonus",
+		help = "Each player get this amount of bonus power",
+		key = 'opt_CenterBonusEnergy',
+		pref = 'opt_CenterBonusEnergy',
+		values = {
+			{ text = "Disabled", help = "No extra energy", key = 0, },
+			{ text = "50", help = "Each player gets 50 extra energy income (via overflow)", key = 50, },
+			{ text = "100", help = "Each player gets 100 extra energy income (via overflow)", key = 100, },
+			{ text = "200", help = "Each player gets 200 extra energy income (via overflow)", key = 200, },
+			{ text = "500", help = "Each player gets 5000 extra energy income (via overflow)", key = 500, },
+			{ text = "1000", help = "Each player gets 1000 extra energy income (via overflow)", key = 1000, },
+		}
+	},
+	{
 		default = 1,
-		label = "Auto Reclaim",
+		label = "Survival: Auto Reclaim",
 		help = "If enabled, when you kill a survival unit it will not leave a wreck, and you will get a fraction of its mass and energy cost",
 		key = 'opt_CenterAutoReclaim',
 		pref = 'opt_CenterAutoReclaim',
@@ -92,7 +166,7 @@ options =
 	},
 	{
 		default = 1,
-		label = "All Factions",
+		label = "Survival: All Factions",
 		help = "When enabled, each player get extra engineers or ACUs",
 		key = 'opt_CenterAllFactions',
 		pref = 'opt_CenterAllFactions',
@@ -101,5 +175,5 @@ options =
 			{ text = "Enabled - engineers", help = "Each player gets 3 extra T1 engies", key = 1, },
 			{ text = "Enabled - ACUs", help = "Each player gets 3 extra ACUs", key = 2, },
 		}
-	},
+	}
 };

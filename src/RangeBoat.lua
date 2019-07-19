@@ -1,11 +1,13 @@
 newInstance = function(unitCreator)
+    local BOAT_ARMY_NAME = "ARMY_RANGE_BOATS"
+
     local function spawnTransport(spawnPosition)
         local bp = GetUnitBlueprintByName("uaa0107")
         bp.Physics.Elevation = 1
         bp.StrategicIconName = ''
 
         local transport = unitCreator.create({
-            armyName = "ARMY_SURVIVAL_ENEMY",
+            armyName = BOAT_ARMY_NAME,
             blueprintName = "uaa0107",
             x = spawnPosition[1],
             y = spawnPosition[3],
@@ -37,7 +39,7 @@ newInstance = function(unitCreator)
         end
 
         local boat = unitCreator.create({
-            armyName = "ARMY_SURVIVAL_ENEMY",
+            armyName = BOAT_ARMY_NAME,
             blueprintName = "ues0302", --xes0307 uel0401
             x = 0,
             y = 0,

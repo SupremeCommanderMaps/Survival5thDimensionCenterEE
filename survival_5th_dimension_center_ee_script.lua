@@ -56,24 +56,40 @@ end)
 
 local function defaultOptions()
 	if (ScenarioInfo.Options.opt_Survival_BuildTime == nil) then
-		ScenarioInfo.Options.opt_Survival_BuildTime = 300;
+		ScenarioInfo.Options.opt_Survival_BuildTime = 300
 	end
 
 	if (ScenarioInfo.Options.opt_Survival_EnemiesPerMinute == nil) then
-		ScenarioInfo.Options.opt_Survival_EnemiesPerMinute = 32;
+		ScenarioInfo.Options.opt_Survival_EnemiesPerMinute = 32
 	end
 
 	if (ScenarioInfo.Options.opt_Survival_WaveFrequency == nil) then
-		ScenarioInfo.Options.opt_Survival_WaveFrequency = 10;
+		ScenarioInfo.Options.opt_Survival_WaveFrequency = 10
 	end
 
     if (ScenarioInfo.Options.opt_CenterAutoReclaim == nil) then
-        ScenarioInfo.Options.opt_CenterAutoReclaim = 0;
+        ScenarioInfo.Options.opt_CenterAutoReclaim = 0
     end
 
     if (ScenarioInfo.Options.opt_CenterAllFactions == nil) then
-        ScenarioInfo.Options.opt_CenterAllFactions = 0;
+        ScenarioInfo.Options.opt_CenterAllFactions = 0
     end
+
+	if (ScenarioInfo.Options.opt_CenterBonusEnergy == nil) then
+		ScenarioInfo.Options.opt_CenterBonusEnergy = 100
+	end
+
+	if (ScenarioInfo.Options.opt_CenterObjectiveRegen == nil) then
+		ScenarioInfo.Options.opt_CenterObjectiveRegen = 25
+	end
+
+	if (ScenarioInfo.Options.opt_CenterObjectiveHealth == nil) then
+		ScenarioInfo.Options.opt_CenterObjectiveHealth = 5000
+	end
+
+	if (ScenarioInfo.Options.opt_CenterObjectiveVision == nil) then
+		ScenarioInfo.Options.opt_CenterObjectiveVision = 350
+	end
 end
 
 local function printAnnouncement(text, options)
@@ -300,10 +316,6 @@ end
 -- initializes the game settings
 --------------------------------------------------------------------------
 Survival_InitGame = function()
-
-	LOG("----- Survival MOD: Configuring match settings...");
-
-
 	Survival_NextSpawnTime = ScenarioInfo.Options.opt_Survival_BuildTime; -- set first wave time to build time
 	Survival_MinWarnTime = Survival_NextSpawnTime - 60; -- set time for minute warning
 
@@ -313,9 +325,8 @@ Survival_InitGame = function()
 	Survival_PlayerCount = 0;
 	
 	local Armies = ListArmies();
-	Survival_PlayerCount_Total = table.getn(Armies) - 2;
+	Survival_PlayerCount_Total = table.getn(Armies) - 3;
 
-	-- loop through armies
 	for i, Army in ListArmies() do
 		if (Army == "ARMY_1" or Army == "ARMY_2" or Army == "ARMY_3" or Army == "ARMY_4") then
 			Survival_PlayerCount = Survival_PlayerCount + 1; -- save player count (ignore players in the middle)
@@ -323,33 +334,33 @@ Survival_InitGame = function()
 	
 		-- Add build restrictions
 		if (Army == "ARMY_1" or Army == "ARMY_2" or Army == "ARMY_3" or Army == "ARMY_4" or Army == "ARMY_5" or Army == "ARMY_6" or Army == "ARMY_7" or Army == "ARMY_8") then 
+			ScenarioFramework.AddRestriction(Army, categories.WALL)
+			ScenarioFramework.AddRestriction(Army, categories.AIR - categories.ENGINEER)
 
-			ScenarioFramework.AddRestriction(Army, categories.WALL); -- don't allow them to build walls
-			ScenarioFramework.AddRestriction(Army, categories.AIR - categories.ENGINEER); -- don't allow them to build air stuff
-
-			-- loop through other armies to ally with other human armies
-			for x, ArmyX in ListArmies() do
-				-- if human army
-				if (ArmyX == "ARMY_1" or ArmyX == "ARMY_2" or ArmyX == "ARMY_3" or ArmyX == "ARMY_4" or ArmyX == "ARMY_5" or ArmyX == "ARMY_6" or ArmyX == "ARMY_7" or ArmyX == "ARMY_8") then 
+			for _, ArmyX in ListArmies() do
+				if (ArmyX == "ARMY_1" or ArmyX == "ARMY_2" or ArmyX == "ARMY_3" or ArmyX == "ARMY_4" or ArmyX == "ARMY_5" or ArmyX == "ARMY_6" or ArmyX == "ARMY_7" or ArmyX == "ARMY_8") then
 					SetAlliance(Army, ArmyX, 'Ally'); 
 				end
 			end			
 
-			SetAlliance(Army, "ARMY_SURVIVAL_ALLY", 'Ally'); -- friendly AI team
-			SetAlliance(Army, "ARMY_SURVIVAL_ENEMY", 'Enemy');  -- enemy AI team
+			SetAlliance(Army, "ARMY_SURVIVAL_ALLY", 'Ally')
+			SetAlliance(Army, "ARMY_SURVIVAL_ENEMY", 'Enemy')
+			SetAlliance(Army, "ARMY_RANGE_BOATS", 'Enemy')
 
-			SetAlliedVictory(Army, true); -- can win together of course :)
+			SetAlliedVictory(Army, true)
 		end
 	end
 
-	SetAlliance("ARMY_SURVIVAL_ALLY", "ARMY_SURVIVAL_ENEMY", 'Enemy'); -- the friendly and enemy AI teams should be enemies
+	SetAlliance("ARMY_SURVIVAL_ALLY", "ARMY_SURVIVAL_ENEMY", 'Enemy')
+	SetAlliance("ARMY_RANGE_BOATS", "ARMY_SURVIVAL_ALLY", 'Ally')
+	SetAlliance("ARMY_RANGE_BOATS", "ARMY_SURVIVAL_ENEMY", 'Ally')
 
-	SetIgnoreArmyUnitCap('ARMY_SURVIVAL_ENEMY', true); -- remove unit cap from enemy AI team
+	SetIgnoreArmyUnitCap('ARMY_SURVIVAL_ENEMY', true)
 
-	Survival_InitMarkers(); -- find and reference all the map markers related to survival
-	Survival_SpawnDef();
+	Survival_InitMarkers()
+	Survival_SpawnDef()
 
-	Survival_CalcWaveCounts(); -- calculate how many units per wave
+	Survival_CalcWaveCounts()
 
 end
 
@@ -411,22 +422,21 @@ Survival_SpawnDef = function()
 	local POS = ScenarioUtils.MarkerToPosition("SURVIVAL_CENTER_1");
 	Survival_DefUnit = CreateUnitHPR('XRB3301', "ARMY_SURVIVAL_ALLY", POS[1], POS[2], POS[3], 0,0,0);
 
-	Survival_DefUnit:SetReclaimable(false);
-	Survival_DefUnit:SetCapturable(false);
-	Survival_DefUnit:SetProductionPerSecondEnergy((Survival_PlayerCount_Total * 100) + 0);
-	Survival_DefUnit:SetConsumptionPerSecondEnergy(0);
+	Survival_DefUnit:SetReclaimable(false)
+	Survival_DefUnit:SetCapturable(false)
+	Survival_DefUnit:SetProductionPerSecondEnergy(Survival_PlayerCount_Total * ScenarioInfo.Options.opt_CenterBonusEnergy)
+	Survival_DefUnit:SetConsumptionPerSecondEnergy(0)
 
-	local defenseObjectHealth = 9000 - (Survival_PlayerCount_Total * 1000);
-	Survival_DefUnit:SetMaxHealth(defenseObjectHealth);
-	Survival_DefUnit:SetHealth(nil, defenseObjectHealth);
-	Survival_DefUnit:SetRegenRate(defenseObjectHealth / 180.0); --It takes 3 minutes for the defense object to fully regenerate.
+	Survival_DefUnit:SetMaxHealth(ScenarioInfo.Options.opt_CenterObjectiveHealth)
+	Survival_DefUnit:SetHealth(nil, ScenarioInfo.Options.opt_CenterObjectiveHealth)
+	Survival_DefUnit:SetRegenRate(ScenarioInfo.Options.opt_CenterObjectiveRegen)
 
 	local Survival_DefUnitBP = Survival_DefUnit:GetBlueprint();
-	Survival_DefUnitBP.Intel.MaxVisionRadius = 350;
-	Survival_DefUnitBP.Intel.MinVisionRadius = 350;
-	Survival_DefUnitBP.Intel.VisionRadius = 350;
+	Survival_DefUnitBP.Intel.MaxVisionRadius = ScenarioInfo.Options.opt_CenterObjectiveVision
+	Survival_DefUnitBP.Intel.MinVisionRadius = ScenarioInfo.Options.opt_CenterObjectiveVision
+	Survival_DefUnitBP.Intel.VisionRadius = ScenarioInfo.Options.opt_CenterObjectiveVision
 
-	Survival_DefUnit:SetIntelRadius('Vision', 350)
+	Survival_DefUnit:SetIntelRadius('Vision', ScenarioInfo.Options.opt_CenterObjectiveVision)
 
 	Survival_DefUnit.OldOnKilled = Survival_DefUnit.OnKilled;
 
@@ -452,9 +462,11 @@ Survival_SpawnDef = function()
 	end
 
 	Survival_DefLastHP = Survival_DefUnit:GetHealth();
-
 end
 
+local function activateDiscoModeForRangeBoatArmy()
+	vendorImport('ColorChanger.lua').newInstance("ARMY_RANGE_BOATS").start()
+end
 
 local function SecondsToTime(Seconds)
 	return string.format("%02d:%02d", math.floor(Seconds / 60), math.mod(Seconds, 60));
@@ -549,6 +561,14 @@ Survival_Tick = function(self)
 				end
 
 				Survival_DefUnit:SetCustomName('Level ' ..  (waveTables[1] - 1) .. "/" .. (table.getn(waveTables) - 1) )
+
+				if isSecondsTillVictory(500) then
+					activateDiscoModeForRangeBoatArmy()
+					printAnnouncement(
+						"Rangeboats detected! Ready Anti-Air!",
+						{ color = ANNOUNCEMENT_COLOR_BAD, duration = 6, size = 25 }
+					)
+				end
 
 				if isSecondsTillVictory(120) then
 					printAnnouncement(

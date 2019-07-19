@@ -7,9 +7,16 @@ You can find the latest version of the code on GitHub at https://github.com/Jero
 
 ### Entropy Edition 6
 
-2019-
+2019-07-
 
+* Added Energy Bonus lobby option
+* Added Objective Health lobby option
+* Added Objective Regen lobby option
+* Added Objective Vision lobby option
 * Increased difficulty of the last 2 minutes
+* Added rangeboat warning
+* Rangeboats no longer shoot at the defence object
+* Rangeboats are now disco mode
 
 ### Entropy Edition 5
 

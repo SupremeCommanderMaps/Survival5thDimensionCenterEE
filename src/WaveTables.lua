@@ -572,7 +572,7 @@ local tables = {
     },
     { -- Wave Set 27
 
-        35.0; -- spawn time
+        35.0; -- spawn time - needs to be in sync with isSecondsTillVictory call in main script
 
         {"T3 Shield", 3, 'XSL0307'},
         {"T3 Shield", 3, 'XSL0307'},
@@ -598,7 +598,7 @@ local tables = {
     },
     { -- Wave Set 28
 
-        38.0; -- spawn time
+        38.0; -- spawn time - needs to be in sync with isSecondsTillVictory call in main script
 
         {"", 404},
         {"", 404},
