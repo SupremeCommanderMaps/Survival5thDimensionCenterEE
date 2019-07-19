@@ -115,18 +115,19 @@ options =
 		}
 	},
 	{
-		default = 6,
+		default = 7,
 		label = "Survival: Objective Vision",
 		help = "How much vision the defence objective should give",
 		key = 'opt_CenterObjectiveVision',
 		pref = 'opt_CenterObjectiveVision',
 		values = {
 			{ text = "Disabled", help = "No extra vision granted", key = 0, },
-			{ text = "100", help = "Allows you to see your own base. Very useful!", key = 100, },
-			{ text = "150", help = "Till the gaps", key = 150, },
-			{ text = "200", help = "A bit in front of the defences", key = 200, },
-			{ text = "250", help = "Only the corners are dark", key = 250, },
-			{ text = "350", help = "The whole map", key = 350, },
+			{ text = "See your own base. Very useful!", help = "100", key = 100, },
+			{ text = "Till the gaps", help = "150", key = 150, },
+			{ text = "A bit in front of the defences", help = "200", key = 200, },
+			{ text = "See about half the lanes", help = "250", key = 250, },
+			{ text = "Only the corners are dark", help = "300", key = 300, },
+			{ text = "The whole map", help = "350", key = 350, },
 		}
 	},
 	{
