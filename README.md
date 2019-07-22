@@ -6,7 +6,7 @@ Enemy units come from all 4 corners. Your job is to protect the defence objectiv
 You lose instantly if it gets destroyed. If you survive the increasingly difficult waves till minute 40 you win.
 
 When playing with fewer then 4 players, the unoccupied lanes will not receive any units and the total amount
-of incomming units is reduced proportionally.
+of incoming units is reduced proportionally.
 
 The map supports many different options that can be changed in the lobby by the game host.
 
