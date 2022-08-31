@@ -1,7 +1,18 @@
 # Survival 5th Dimension Center EE
 
-Version of the map in the map vault are usually distributed without the .git/ folder.
-You can find the latest version of the code on GitHub at https://github.com/JeroenDeDauw/Survival5thDimensionCenterEE
+A survival map for [Supreme Commander: Forged Alliance Forever][FAF] that supports 1 to 8 players. Best with 4 players.
+
+Enemy units come from all 4 corners. Your job is to protect the defence objective at the center of the map.
+You lose instantly if it gets destroyed. If you survive the increasingly difficult waves till minute 40 you win.
+
+When playing with fewer than 4 players, the unoccupied lanes will not receive any units and the total amount
+of incoming units is reduced proportionally.
+
+The map supports many options that can be changed in the lobby by the game host.
+
+[![image](https://user-images.githubusercontent.com/146040/61600615-d517ea00-ac31-11e9-85a6-44a0c57decd3.png)](https://www.youtube.com/watch?v=DvDkivre_NA)
+
+This map is developed using git. The repository can be found at https://github.com/JeroenDeDauw/Survival5thDimensionCenterEE
 
 ## Version History
 
@@ -58,3 +69,4 @@ Enhancements by Duck_41, Phelom and Spoon.
 
 Original version, likely by Gurzil
 
+[FAF]: http://www.faforever.com/
