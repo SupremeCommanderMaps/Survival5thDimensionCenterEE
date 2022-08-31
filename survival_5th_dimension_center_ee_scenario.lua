@@ -2,7 +2,7 @@ version = 3
 ScenarioInfo = {
     name = 'Survival 5th Dimension Center EE',
     map_version=7,
-    description = 'Survive for 35 minutes and defend the Defence Object at the center of the map. Can be played with less than 4 players, as the map adjusts to the player count. Version history and developer info can be found in the README.md file.',
+    description = 'Survive for 35 minutes and defend the Defence Object at the center of the map. Can be played with less than 4 players, as the map adjusts to the player count. Map by Gurzil, Duck_41, Phelom, Spoon, and EntropyWins. Version history and developer info can be found in the README.md file.',
     type = 'skirmish',
     starts = true,
     preview = '',
@@ -36,4 +36,5 @@ ScenarioInfo = {
                 ['ExtraArmies'] = STRING( 'ARMY_SURVIVAL_ALLY ARMY_SURVIVAL_ENEMY ARMY_RANGE_BOATS' ),
             },
         },
-    }}
+    }
+}

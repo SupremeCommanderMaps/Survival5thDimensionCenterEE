@@ -12,9 +12,17 @@ The map supports many options that can be changed in the lobby by the game host.
 
 [![image](https://user-images.githubusercontent.com/146040/61600615-d517ea00-ac31-11e9-85a6-44a0c57decd3.png)](https://www.youtube.com/watch?v=DvDkivre_NA)
 
-This map is developed using git. The repository can be found at https://github.com/JeroenDeDauw/Survival5thDimensionCenterEE
+This map is developed using git. The repository can be found at https://github.com/SupremeCommanderMaps/Survival5thDimensionCenterEE
+
+Map by Gurzil, Duck_41, Phelom, Spoon, and EntropyWins.
 
 ## Version History
+
+### Entropy Edition 7
+
+2022-08-31
+
+* Improved README
 
 ### Entropy Edition 6
 
