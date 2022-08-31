@@ -34,11 +34,11 @@ local ANNOUNCEMENT_COLOR_FAIL = 'ffff5555'
 local ANNOUNCEMENT_COLOR_BAD = 'ffff5599'
 
 local function localImport(fileName)
-	return import('/maps/survival_5th_dimension_center_ee.v0006/src/' .. fileName)
+	return import('/maps/survival_5th_dimension_center_ee.v0007/src/' .. fileName)
 end
 
 local function vendorImport(fileName)
-	return import('/maps/survival_5th_dimension_center_ee.v0006/vendor/lib/src/' .. fileName)
+	return import('/maps/survival_5th_dimension_center_ee.v0007/vendor/lib/src/' .. fileName)
 end
 
 local waveTables = localImport('WaveTables.lua').getWaveTables()

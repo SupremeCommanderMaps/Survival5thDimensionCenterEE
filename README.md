@@ -44,6 +44,17 @@ You can find the latest version of the code on GitHub at https://github.com/Jero
 * Flying engineers (UEF drones) can now be build
 * Changed bot color so that it cannot be the same as one of the players
 * Added DISCO MODE
-* Removed some nuke and arty "special waves" because shit code I don't want to deal with
+* Removed some nuke and arty "special waves" due to poor code quality
 * Many code simplifications
 * Put "Survival 5thdim Center v0006" code in git repo and added README
+
+## Version 6
+
+2015 and earlier
+
+Enhancements by Duck_41, Phelom and Spoon.
+
+## Version 1
+
+Original version, likely by Gurzil
+
